@@ -9,28 +9,14 @@ export function StoreSection() {
   const { t, isRTL } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const storeItems = [
-    {
-      id: 1,
-      title: "حقائب التعلم (Offline-Lernsets)",
-      description: "مجموعات متكاملة تشمل كتباً، ألعاباً، وبطاقات تعليمية.",
-      price: "149.99€",
-      category: 'learningSets',
-      image: '/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg',
-      featured: true,
-      type: 'learningSet'
-    },
-    {
-      id: 2,
-      title: "موارد رقمية",
-      description: "ملفات فيديو وصوت لضبط النطق الصحيح.",
-      price: "49.99€",
-      category: 'digitalResources',
-      image: '/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg',
-      featured: true,
-      type: 'digitalResource'
-    }
-  ];
+  const storeItems = t.store?.products 
+    ? Object.entries(t.store.products)
+        .filter(([id, product]) => product.featured)
+        .map(([id, product]) => ({
+          id: parseInt(id),
+          ...product
+        }))
+    : [];
 
   const categories = [
     { id: 'all', label: t.store.categories.all, count: storeItems.length },

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export function ParentTrainingSection() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, language } = useLanguage();
   const [activeTab, setActiveTab] = useState('family');
 
   const trainingCards = [
@@ -25,8 +25,8 @@ export function ParentTrainingSection() {
   ];
 
   const tabs = [
-    { id: 'family', label: t.parentTraining.tabs.family || 'Parent Counseling', icon: '🏠' },
-    { id: 'life', label: t.parentTraining.tabs.life || 'Language Coaching', icon: '🌟' }
+    { id: 'family', label: t.parentTraining?.tabs?.family || 'Parent Counseling', icon: '🏠' },
+    { id: 'life', label: t.parentTraining?.tabs?.life || 'Language Coaching', icon: '🌟' }
   ];
 
   return (
@@ -43,10 +43,10 @@ export function ParentTrainingSection() {
         {/* Header */}
         <div className={`text-center mb-6 sm:mb-12 ${isRTL ? 'rtl' : ''}`}>
           <h2 className="text-2xl p-2 sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-green-800 via-emerald-700 to-green-800 bg-clip-text text-transparent">
-            {t.parentTraining.title}
+            {t.parentTraining?.title || 'Parent Counseling & Language Coaching'}
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-gray-800 max-w-3xl mx-auto">
-            {t.parentTraining.subtitle}
+            {t.parentTraining?.subtitle || 'Professional support for parents on family issues, life challenges, and child development'}
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export function ParentTrainingSection() {
 
                     {/* CTA Button */}
                     <button className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-xs">
-                      {t.parentTraining.cta.learnMore}
+                      {t.parentTraining?.cta?.learnMore || 'Learn More'}
                     </button>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ export function ParentTrainingSection() {
 
                 {/* CTA Button */}
                 <button className="mt-4 sm:mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-black py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
-                  {t.parentTraining.cta.learnMore}
+                  {t.parentTraining?.cta?.learnMore || 'Learn More'}
                 </button>
               </div>
             </div>
@@ -166,12 +166,12 @@ export function ParentTrainingSection() {
         {/* Bottom CTA */}
         <div className="text-center mt-8 sm:mt-16">
           <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-black">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">{t.parentTraining.cta.ready}</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">{t.parentTraining?.cta?.ready || 'Ready for positive changes?'}</h3>
             <p className="text-lg sm:text-xl mb-4 sm:mb-6 text-green-100">
-              {t.parentTraining.cta.subtitle}
+              {t.parentTraining?.cta?.subtitle || 'Start today with our parent training program'}
             </p>
             <button className="bg-white text-green-700 px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
-              {t.parentTraining.cta.enroll}
+              {t.parentTraining?.cta?.enroll || 'Enroll Now'}
             </button>
           </div>
         </div>

@@ -166,7 +166,7 @@ export function BlogSection() {
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="absolute top-3 left-3">
                           <span className="bg-white/90 backdrop-blur-sm text-green-600 px-2 py-1 rounded-full text-xs font-semibold">
-                            Featured
+                            {t.blog.featured}
                           </span>
                         </div>
                       </div>

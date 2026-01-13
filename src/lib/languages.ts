@@ -5,13 +5,16 @@ export const translations = {
     navigation: {
       home: "Startseite",
       courses: "Kurse",
+      lessons: "Lektionen",
       parentTraining: "Elterntraining",
       blog: "Blog", 
       services: "Dienstleistungen",
       store: "Store",
       privacy: "Datenschutz",
       about: "Über uns",
-      contact: "Kontakt"
+      contact: "Kontakt",
+      homeLessons: "Hausaufgaben-Lektionen",
+      privateLessons: "Private Lektionen"
     },
     home: {
       hero: {
@@ -213,6 +216,231 @@ export const translations = {
         }
       }
     },
+    homeVisit: {
+      title: "Hausbesuch-Paket",
+      description: "Individuelles Lernen vor Ort für maximale Konzentration und Erfolg",
+      name: "Individuelles Lernen vor Ort",
+      subtitle: "Persönliche Betreuung in Ihrer vertrauten Umgebung",
+      period: "pro 90-minütiger Sitzung",
+      features: {
+        duration: "90 Minuten pro Sitzung",
+        environment: "Lernen in Ihrer gewohnten Umgebung",
+        focus: "Maximale Konzentration ohne Ablenkungen",
+        travel: "Inklusive Anfahrtskosten"
+      },
+      pricingDetails: {
+        title: "Preisdetails",
+        sessionPrice: "Preis pro Sitzung",
+        duration: "Dauer",
+        minutes: "Minuten",
+        travelCost: "Fahrtkosten",
+        perKm: "km"
+      },
+      calculationExample: {
+        title: "Berechnungsbeispiel",
+        description: "Beispielrechnung für eine Entfernung von 1 km zwischen Akademie und Ihrem Wohnort:",
+        sessionPrice: "Preis der Sitzung",
+        travelCost: "Fahrtkosten",
+        total: "Gesamt pro Sitzung"
+      },
+      cta: {
+        button: "Jetzt reservieren",
+        note: "Fahrtkosten werden basierend auf der Entfernung berechnet"
+      }
+    },
+    homeVisitReservation: {
+      title: "Hausbesuch-Reservierung",
+      subtitle: "Buchen Sie Ihre persönliche Hausbesuch-Sitzung",
+      personalInfo: "Persönliche Informationen",
+      name: "Vollständiger Name",
+      email: "E-Mail",
+      phone: "Telefon",
+      locationInfo: "Standortinformationen",
+      address: "Adresse",
+      distance: "Entfernung von der Akademie (km)",
+      distanceNote: "Fahrtkosten: €0,35 pro km (Hin- und Rückfahrt)",
+      scheduling: "Bevorzugter Zeitplan",
+      preferredDate: "Bevorzugtes Datum",
+      preferredTime: "Bevorzugte Uhrzeit",
+      selectTime: "Uhrzeit auswählen",
+      notes: "Zusätzliche Hinweise",
+      notesPlaceholder: "Besondere Wünsche oder Fragen...",
+      priceSummary: "Preisübersicht",
+      sessionPrice: "Sitzungspreis (90 Min.)",
+      travelCost: "Fahrtkosten",
+      total: "Gesamt",
+      importantInfo: "Wichtige Informationen",
+      info1: "90-minütige Sitzung bei Ihnen vor Ort",
+      info2: "Fahrtkosten werden für Hin- und Rückfahrt berechnet",
+      info3: "Bestätigung wird per E-Mail gesendet",
+      info4: "Kostenlose Stornierung bis 24 Stunden vorher",
+      back: "Zurück",
+      submit: "Reservierung absenden",
+      submitting: "Wird gesendet...",
+      successMessage: "Reservierung erfolgreich übermittelt!"
+    },
+    blog: {
+      title: "Unser Blog",
+      subtitle: "Tipps, Einblicke und Expertenwissen rund um Sprache, Lernen und Familienleben",
+      categories: {
+        all: "Alle",
+        learning: "Lernen",
+        language: "Sprache", 
+        family: "Familie",
+        technology: "Technologie",
+        psychology: "Psychologie"
+      },
+      featured: "Featured Artikel",
+      readMore: "Weiterlesen",
+      readTime: "Min Lesezeit",
+      author: "Autor",
+      loadMore: "Mehr Artikel laden",
+      newsletter: {
+        title: "Bleiben Sie informiert",
+        subtitle: "Erhalten Sie die neuesten Artikel und Tipps direkt in Ihr Postfach",
+        placeholder: "Ihre E-Mail-Adresse",
+        subscribe: "Abonnieren"
+      },
+      posts: {
+        1: {
+          title: 'Effektive Lernmethoden für Kinder',
+          excerpt: 'Entdecken Sie bewährte Techniken, die Kindern helfen, besser zu lernen und Wissen zu behalten.',
+          category: 'learning',
+          author: 'Dr. Sarah Müller',
+          date: '15. Januar 2024',
+          readTime: '5',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: true,
+          tags: ['Lernen', 'Kinder', 'Bildung']
+        },
+        2: {
+          title: 'Die Bedeutung von Sprachförderung',
+          excerpt: 'Warum frühe Sprachförderung entscheidend für die Entwicklung Ihres Kindes ist.',
+          category: 'language',
+          author: 'Prof. Ahmed Hassan',
+          date: '12. Januar 2024',
+          readTime: '7',
+          image: '/blog/download (73).jpg',
+          featured: true,
+          tags: ['Sprache', 'Entwicklung', 'Frühe Förderung']
+        },
+        3: {
+          title: 'Work-Life-Balance für Eltern',
+          excerpt: 'Praktische Tipps für eine bessere Balance zwischen Beruf und Familienleben.',
+          category: 'family',
+          author: 'Maria Schmidt',
+          date: '10. Januar 2024',
+          readTime: '6',
+          image: '/blog/download (74).jpg',
+          featured: false,
+          tags: ['Familie', 'Balance', 'Elternsein']
+        },
+        4: {
+          title: 'Digitale Medien in der Erziehung',
+          excerpt: 'Wie Sie den Umgang mit digitalen Medien für Ihre Kinder sinnvoll gestalten.',
+          category: 'technology',
+          author: 'Thomas Weber',
+          date: '8. Januar 2024',
+          readTime: '8',
+          image: '/blog/download (75).jpg',
+          featured: false,
+          tags: ['Technologie', 'Medien', 'Erziehung']
+        },
+        5: {
+          title: 'Emotionale Intelligenz fördern',
+          excerpt: 'Strategien zur Entwicklung emotionaler Kompetenzen bei Kindern.',
+          category: 'psychology',
+          author: 'Dr. Lisa Chen',
+          date: '5. Januar 2024',
+          readTime: '6',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: false,
+          tags: ['Emotionen', 'Psychologie', 'Kinder']
+        },
+        6: {
+          title: 'Bilinguale Erziehung: Vorteile und Herausforderungen',
+          excerpt: 'Was Sie über die Erziehung von zweisprachigen Kindern wissen sollten.',
+          category: 'language',
+          author: 'Dr. Carlos Rodriguez',
+          date: '3. Januar 2024',
+          readTime: '9',
+          image: '/blog/download (73).jpg',
+          featured: false,
+          tags: ['Bilingual', 'Sprache', 'Erziehung']
+        }
+      }
+    },
+    store: {
+      title: "Lisan Arabi Online-Shop",
+      subtitle: "Wir bieten Lernmaterialien, die Ihnen beim Selbststudium helfen:",
+      categories: {
+        all: "Alle",
+        learningSets: "Lernsets (Offline-Lernsets)",
+        digitalResources: "Digitale Ressourcen"
+      },
+      featured: "Empfohlen",
+      viewDetails: "Details anzeigen",
+      view: "Anzeigen",
+      loadMore: "Mehr Produkte anzeigen",
+      learningSet: "Lernset",
+      digitalResource: "Digitale Ressource",
+      products: {
+        1: {
+          title: "Komplettes Lernset",
+          description: "Integrierte Sammlung mit Büchern, Spielen und Lernkarten für das Selbststudium.",
+          price: "149.99€",
+          category: "learningSets",
+          featured: true,
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
+        },
+        2: {
+          title: "Lernkarten-Sammlung",
+          description: "Interaktive Lernkarten zur Entwicklung von Vokabular und Sprachfähigkeiten.",
+          price: "29.99€",
+          category: "learningSets",
+          featured: false,
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
+        },
+        3: {
+          title: "Lehrvideos",
+          description: "Video- und Audiodateien zur korrekten Aussprache und Verbesserung der Sprachfähigkeiten.",
+          price: "49.99€",
+          category: "digitalResources",
+          featured: true,
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
+        },
+        4: {
+          title: "Lernspiele-Sammlung",
+          description: "Unterhaltsame Lernspiele zur Förderung des interaktiven und effektiven Lernens.",
+          price: "39.99€",
+          category: "learningSets",
+          featured: false,
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
+        },
+        5: {
+          title: "Aussprache-Audiodateien",
+          description: "Hochwertige Audioaufnahmen für das Aussprachetraining.",
+          price: "19.99€",
+          category: "digitalResources",
+          featured: false,
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
+        },
+        6: {
+          title: "Fortgeschrittenes Lernset",
+          description: "Fortgeschrittene Sammlung für Lernende, die ihre Fähigkeiten intensiv entwickeln möchten.",
+          price: "199.99€",
+          category: "learningSets",
+          featured: false,
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
+        }
+      }
+    },
     parentTraining: {
       title: "Elternberatung & Sprachlernbegleitung",
       subtitle: "Professionelle Unterstützung für Eltern bei Familienfragen, Lebens Herausforderungen und der Entwicklung Ihrer Kinder",
@@ -250,94 +478,6 @@ export const translations = {
         subtitle: "Starten Sie noch heute mit unserem Elterntrainingsprogramm",
         enroll: "Jetzt anmelden",
         learnMore: "Mehr erfahren"
-      }
-    },
-    blog: {
-      title: "Unser Blog",
-      subtitle: "Tipps, Einblicke und Expertenwissen rund um Sprache, Lernen und Familienleben",
-      categories: {
-        all: "Alle",
-        learning: "Lernen",
-        language: "Sprache", 
-        family: "Familie",
-        technology: "Technologie",
-        psychology: "Psychologie"
-      },
-      featured: "Featured Artikel",
-      readMore: "Weiterlesen",
-      readTime: "Min Lesezeit",
-      author: "Autor",
-      loadMore: "Mehr Artikel laden",
-      newsletter: {
-        title: "Bleiben Sie informiert",
-        subtitle: "Erhalten Sie die neuesten Artikel und Tipps direkt in Ihr Postfach",
-        placeholder: "Ihre E-Mail-Adresse",
-        subscribe: "Abonnieren"
-      }
-    },
-    store: {
-      title: "Lisan Arabi Online-Shop",
-      subtitle: "Wir bieten Lernmaterialien, die Ihnen beim Selbststudium helfen:",
-      categories: {
-        all: "Alle",
-        learningSets: "Lernsets (Offline-Lernsets)",
-        digitalResources: "Digitale Ressourcen"
-      },
-      featured: "Empfohlen",
-      viewDetails: "Details anzeigen",
-      view: "Anzeigen",
-      loadMore: "Mehr Produkte anzeigen",
-      learningSet: "Lernset",
-      digitalResource: "Digitale Ressource",
-      products: {
-        1: {
-          title: "Komplettes Lernset",
-          description: "Integrierte Sammlung mit Büchern, Spielen und Lernkarten für das Selbststudium.",
-          price: "149.99€",
-          category: "learningSets",
-          featured: true,
-          type: "learningSet"
-        },
-        2: {
-          title: "Lernkarten-Sammlung",
-          description: "Interaktive Lernkarten zur Entwicklung von Vokabular und Sprachfähigkeiten.",
-          price: "29.99€",
-          category: "learningSets",
-          featured: false,
-          type: "learningSet"
-        },
-        3: {
-          title: "Lehrvideos",
-          description: "Video- und Audiodateien zur korrekten Aussprache und Verbesserung der Sprachfähigkeiten.",
-          price: "49.99€",
-          category: "digitalResources",
-          featured: true,
-          type: "digitalResource"
-        },
-        4: {
-          title: "Lernspiele-Sammlung",
-          description: "Unterhaltsame Lernspiele zur Förderung des interaktiven und effektiven Lernens.",
-          price: "39.99€",
-          category: "learningSets",
-          featured: false,
-          type: "learningSet"
-        },
-        5: {
-          title: "Aussprache-Audiodateien",
-          description: "Hochwertige Audioaufnahmen für das Aussprachetraining.",
-          price: "19.99€",
-          category: "digitalResources",
-          featured: false,
-          type: "digitalResource"
-        },
-        6: {
-          title: "Fortgeschrittenes Lernset",
-          description: "Fortgeschrittene Sammlung für Lernende, die ihre Fähigkeiten intensiv entwickeln möchten.",
-          price: "199.99€",
-          category: "learningSets",
-          featured: false,
-          type: "learningSet"
-        }
       }
     },
     reservation: {
@@ -379,13 +519,16 @@ export const translations = {
     navigation: {
       home: "الرئيسية",
       courses: "الدورات",
+      lessons: "الدروس",
       services: "الخدمات", 
       store: "المتجر",
       parentTraining: "الدورات التدريبية",
       blog: "المدونة",
       privacy: "سياسة الخصوصية",
       about: "من نحن",
-      contact: "اتصل بنا"
+      contact: "اتصل بنا",
+      homeLessons: "الدروس المنزلية",
+      privateLessons: "الدروس الخصوصية"
     },
     home: {
       hero: {
@@ -531,6 +674,45 @@ export const translations = {
       learnMore: "اعرف المزيد",
       mostPopular: "الأكثر شعبية"
     },
+    parentTraining: {
+      title: "الإرشاد الأبوي وتطوير اللغة",
+      subtitle: "دعم احترافي للآباء في القضايا الأسرية وتحديات الحياة وتنمية الأطفال",
+      tabs: {
+        family: "الإرشاد الأبوي",
+        life: "تطوير اللغة", 
+        kids: "الثقافة"
+      },
+      cards: {
+        family: {
+          title: "الإرشاد الأبوي",
+          subtitle: "دعم احترافي في القضايا الأسرية وأسئلة التربية",
+          description: "تعلم طرق مثبتة لخلق جو أسري متناغم وتواصل فعال مع أطفالك.",
+          features: [
+            "تقنيات التواصل",
+            "حل النزاعات",
+            "وضع الحدود",
+            "التربية الإيجابية"
+          ]
+        },
+        life: {
+          title: "تطوير اللغة",
+          subtitle: "تطوير فردي للغة والتنمية الشخصية",
+          description: "أطلق إمكاناتك الكاملة من خلال التدريب اللغوي الموجه والاستراتيجيات الشخصية.",
+          features: [
+            "الكفاءة اللغوية",
+            "مهارات التواصل",
+            "التطور الشخصي",
+            "التطوير المهني"
+          ]
+        }
+      },
+      cta: {
+        ready: "هل أنت مستعد للتغييرات الإيجابية؟",
+        subtitle: "ابدأ اليوم مع برنامج الدورات التدريبية( الكوتشينج) لدينا",
+        enroll: "سجل الآن",
+        learnMore: "اعرف المزيد"
+      }
+    },
     onlineLessons: {
       title: "الدروس الخصوصية أونلاين",
       description: "اكتشف خطط الدروس الخصوصية المرنة عبر الإنترنت للتعلم الفردي",
@@ -615,44 +797,70 @@ export const translations = {
         priceLabel: "السعر:",
         confirmationNote: "سيتم تأكيد الحجز عبر البريد الإلكتروني",
         confirmButton: "تأكيد الحجز"
+      }
+    },
+    homeVisit: {
+      title: "باقة الدروس المنزلية (Hausbesuch-Paket)",
+      description: "باقة التعلم الفردي في الموقع (Individuelles Lernen vor Ort) هذه الباقة مخصصة للطلاب الذين يفضلون التعلم في بيئتهم الخاصة لضمان أقصى درجات التركيز",
+      name: "باقة التعلم الفردي في الموقع",
+      subtitle: "تعلم شخصي في بيئتك المعتادة",
+      period: "لكل جلسة 90 دقيقة",
+      features: {
+        duration: "90 دقيقة لكل جلسة",
+        environment: "التعلم في بيئتك المعتادة",
+        focus: "أقصى تركيز بدون مشتتات",
+        travel: "شامل تكاليف الانتقال"
       },
-      parentTraining: {
-        title: "الإرشاد الأبوي وتطوير اللغة",
-        subtitle: "دعم احترافي للآباء في القضايا الأسرية وتحديات الحياة وتنمية الأطفال",
-        tabs: {
-          family: "الإرشاد الأبوي",
-          life: "تطوير اللغة", 
-          kids: "الثقافة"
-        },
-        cards: {
-          title: "الإرشاد الأبوي",
-          subtitle: "دعم احترافي في القضايا الأسرية وأسئلة التربية",
-          description: "تعلم طرق مثبتة لخلق جو أسري متناغم وتواصل فعال مع أطفالك.",
-          features: [
-            "تقنيات التواصل",
-            "حل النزاعات",
-            "وضع الحدود",
-            "التربية الإيجابية"
-          ]
-        },
-        life: {
-          title: "تطوير اللغة",
-          subtitle: "تطوير فردي للغة والتنمية الشخصية",
-          description: "أطلق إمكاناتك الكاملة من خلال التدريب اللغوي الموجه والاستراتيجيات الشخصية.",
-          features: [
-            "الكفاءة اللغوية",
-            "مهارات التواصل",
-            "التطور الشخصي",
-            "التطوير المهني"
-          ]
-        }
+      pricingDetails: {
+        title: "تفاصيل السعر",
+        sessionPrice: "سعر الحصة التعليمية",
+        duration: "المدة",
+        minutes: "دقيقة",
+        travelCost: "رسوم الانتقال",
+        perKm: "لكل كيلومتر"
+      },
+      calculationExample: {
+        title: "مثال توضيحي لحساب التكلفة (Berechnungsbeispiel)",
+        description: "إذا كانت المسافة بين الأكاديمية ومنزل الطالب 1 كم:",
+        sessionPrice: "سعر الحصة",
+        travelCost: "تكلفة الانتقال",
+        total: "الإجمالي للحصة الواحدة"
       },
       cta: {
-        ready: "هل أنت مستعد للتغييرات الإيجابية؟",
-        subtitle: "ابدأ اليوم مع برنامج الدورات التدريبية( الكوتشينج) لدينا",
-        enroll: "سجل الآن",
-        learnMore: "اعرف المزيد"
+        button: "احجز الآن",
+        note: "يضاف 0.35 € لكل كيلومتر (ذهاباً وإياباً)"
       }
+    },
+    homeVisitReservation: {
+      title: "حجز زيارة منزلية",
+      subtitle: "احجز جلستك التعليمية الشخصية في المنزل",
+      personalInfo: "المعلومات الشخصية",
+      name: "الاسم الكامل",
+      email: "البريد الإلكتروني",
+      phone: "رقم الهاتف",
+      locationInfo: "معلومات الموقع",
+      address: "العنوان",
+      distance: "المسافة من الأكاديمية (كم)",
+      distanceNote: "تكلفة الانتقال: €0.35 لكل كم (ذهاباً وإياباً)",
+      scheduling: "الجدولة المفضلة",
+      preferredDate: "التاريخ المفضل",
+      preferredTime: "الوقت المفضل",
+      selectTime: "اختر الوقت",
+      notes: "ملاحظات إضافية",
+      notesPlaceholder: "متطلبات أو أسئلة خاصة...",
+      priceSummary: "ملخص الأسعار",
+      sessionPrice: "سعر الجلسة (90 دقيقة)",
+      travelCost: "تكلفة الانتقال",
+      total: "الإجمالي",
+      importantInfo: "معلومات هامة",
+      info1: "جلسة 90 دقيقة في موقعك",
+      info2: "يتم حساب تكاليف الانتقال ذهاباً وإياباً",
+      info3: "يتم إرسال التأكيد عبر البريد الإلكتروني",
+      info4: "إلغاء مجاني حتى 24 ساعة قبل الموعد",
+      back: "رجوع",
+      submit: "إرسال الحجز",
+      submitting: "جاري الإرسال...",
+      successMessage: "تم إرسال الحجز بنجاح!"
     },
     blog: {
       title: "مدونتنا",
@@ -675,6 +883,74 @@ export const translations = {
         subtitle: "احصل على أحدث المقالات والنصائح مباشرة في صندوق بريدك",
         placeholder: "عنوان بريدك الإلكتروني",
         subscribe: "اشترك"
+      },
+      posts: {
+        1: {
+          title: 'طرق التعلم الفعالة للأطفال',
+          excerpt: 'اكتشف تقنيات مجربة تساعد الأطفال على التعلم بشكل أفضل والاحتفاظ بالمعرفة.',
+          category: 'learning',
+          author: 'د. سارة مولر',
+          date: '15 يناير 2024',
+          readTime: '5',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: true,
+          tags: ['التعلم', 'الأطفال', 'التعليم']
+        },
+        2: {
+          title: 'أهمية دعم اللغة',
+          excerpt: 'لماذا دعم اللغة المبكر حاسم لتطور طفلك.',
+          category: 'language',
+          author: 'أستاذ أحمد حسن',
+          date: '12 يناير 2024',
+          readTime: '7',
+          image: '/blog/download (73).jpg',
+          featured: true,
+          tags: ['اللغة', 'التطور', 'الدعم المبكر']
+        },
+        3: {
+          title: 'التوازن بين العمل والحياة للآباء',
+          excerpt: 'نصائح عملية لتحقيق توازن أفضل بين العمل والحياة الأسرية.',
+          category: 'family',
+          author: 'ماريا شميت',
+          date: '10 يناير 2024',
+          readTime: '6',
+          image: '/blog/download (74).jpg',
+          featured: false,
+          tags: ['الأسرة', 'التوازن', 'الأبوة']
+        },
+        4: {
+          title: 'الوسائط الرقمية في التربية',
+          excerpt: 'كيفية توجيه استخدام الأطفال للوسائط الرقمية بشكل فعال.',
+          category: 'technology',
+          author: 'توماس ويبر',
+          date: '8 يناير 2024',
+          readTime: '8',
+          image: '/blog/download (75).jpg',
+          featured: false,
+          tags: ['التكنولوجيا', 'الوسائط', 'التربية']
+        },
+        5: {
+          title: 'تعزيز الذكاء العاطفي',
+          excerpt: 'استراتيجيات لتطوير الكفاءات العاطفية لدى الأطفال.',
+          category: 'psychology',
+          author: 'د. ليزا تشن',
+          date: '5 يناير 2024',
+          readTime: '6',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: false,
+          tags: ['العواطف', 'علم النفس', 'الأطفال']
+        },
+        6: {
+          title: 'التربية ثنائية اللغة: المزايا والتحديات',
+          excerpt: 'ما يجب أن تعرفه عن تربية الأطفال ثنائيي اللغة.',
+          category: 'language',
+          author: 'د. كارلوس رودريغيز',
+          date: '3 يناير 2024',
+          readTime: '9',
+          image: '/blog/download (73).jpg',
+          featured: false,
+          tags: ['ثنائي اللغة', 'اللغة', 'التربية']
+        }
       }
     },
     store: {
@@ -698,7 +974,8 @@ export const translations = {
           price: "149.99€",
           category: "learningSets",
           featured: true,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
         },
         2: {
           title: "مجموعة بطاقات تعليمية",
@@ -706,7 +983,8 @@ export const translations = {
           price: "29.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         3: {
           title: "ملفات فيديو تعليمية",
@@ -714,7 +992,8 @@ export const translations = {
           price: "49.99€",
           category: "digitalResources",
           featured: true,
-          type: "digitalResource"
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         4: {
           title: "مجموعة ألعاب تعليمية",
@@ -722,7 +1001,8 @@ export const translations = {
           price: "39.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         5: {
           title: "ملفات صوتية للنطق",
@@ -730,7 +1010,8 @@ export const translations = {
           price: "19.99€",
           category: "digitalResources",
           featured: false,
-          type: "digitalResource"
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         6: {
           title: "حقيبة التعلم المتقدمة",
@@ -738,7 +1019,8 @@ export const translations = {
           price: "199.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
         }
       }
     },
@@ -781,13 +1063,16 @@ export const translations = {
     navigation: {
       home: "Home",
       courses: "Courses",
+      lessons: "Lessons",
       services: "Services",
       store: "Store",
       parentTraining: "Parent Training",
       blog: "Blog",
       privacy: "Privacy Policy",
       about: "About",
-      contact: "Contact"
+      contact: "Contact",
+      homeLessons: "Homework Lessons",
+      privateLessons: "Private Lessons"
     },
     home: {
       hero: {
@@ -989,6 +1274,69 @@ export const translations = {
         goToReservation: "Go to Reservation Page"
       }
     },
+    homeVisit: {
+      title: "Home Visit Package",
+      description: "Individual on-site learning for maximum concentration and success",
+      name: "Individual On-site Learning",
+      subtitle: "Personal care in your familiar environment",
+      period: "per 90-minute session",
+      features: {
+        duration: "90 minutes per session",
+        environment: "Learn in your familiar environment",
+        focus: "Maximum concentration without distractions",
+        travel: "Including travel costs"
+      },
+      pricingDetails: {
+        title: "Price Details",
+        sessionPrice: "Price per session",
+        duration: "Duration",
+        minutes: "minutes",
+        travelCost: "Travel Costs",
+        perKm: "per km"
+      },
+      calculationExample: {
+        title: "Calculation Example",
+        description: "Example calculation for a distance of 1 km between academy and your home:",
+        sessionPrice: "Session Price",
+        travelCost: "Travel Cost",
+        total: "Total per session"
+      },
+      cta: {
+        button: "Reserve Now",
+        note: "Travel costs are calculated based on distance"
+      }
+    },
+    homeVisitReservation: {
+      title: "Home Visit Reservation",
+      subtitle: "Book your personalized home visit session",
+      personalInfo: "Personal Information",
+      name: "Full Name",
+      email: "Email",
+      phone: "Phone",
+      locationInfo: "Location Information",
+      address: "Address",
+      distance: "Distance from Academy (km)",
+      distanceNote: "Travel cost: €0.35 per km (round trip)",
+      scheduling: "Preferred Schedule",
+      preferredDate: "Preferred Date",
+      preferredTime: "Preferred Time",
+      selectTime: "Select a time",
+      notes: "Additional Notes",
+      notesPlaceholder: "Any special requirements or questions...",
+      priceSummary: "Price Summary",
+      sessionPrice: "Session Price (90 min)",
+      travelCost: "Travel Cost",
+      total: "Total",
+      importantInfo: "Important Information",
+      info1: "90-minute session at your location",
+      info2: "Travel costs calculated round trip",
+      info3: "Confirmation sent via email",
+      info4: "Free cancellation up to 24 hours before",
+      back: "Back",
+      submit: "Submit Reservation",
+      submitting: "Submitting...",
+      successMessage: "Reservation submitted successfully!"
+    },
     parentTraining: {
       title: "Parent Counseling & Language Coaching",
       subtitle: "Professional support for parents on family issues, life challenges, and child development",
@@ -1049,6 +1397,74 @@ export const translations = {
         subtitle: "Get the latest articles and tips delivered directly to your inbox",
         placeholder: "Your Email Address",
         subscribe: "Subscribe"
+      },
+      posts: {
+        1: {
+          title: 'Effective Learning Methods for Children',
+          excerpt: 'Discover proven techniques that help children learn better and retain knowledge.',
+          category: 'learning',
+          author: 'Dr. Sarah Müller',
+          date: '15 January 2024',
+          readTime: '5',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: true,
+          tags: ['Learning', 'Children', 'Education']
+        },
+        2: {
+          title: 'The Importance of Language Support',
+          excerpt: 'Why early language support is crucial for your child\'s development.',
+          category: 'language',
+          author: 'Prof. Ahmed Hassan',
+          date: '12 January 2024',
+          readTime: '7',
+          image: '/blog/download (73).jpg',
+          featured: true,
+          tags: ['Language', 'Development', 'Early Support']
+        },
+        3: {
+          title: 'Work-Life Balance for Parents',
+          excerpt: 'Practical tips for better balance between work and family life.',
+          category: 'family',
+          author: 'Maria Schmidt',
+          date: '10 January 2024',
+          readTime: '6',
+          image: '/blog/download (74).jpg',
+          featured: false,
+          tags: ['Family', 'Balance', 'Parenting']
+        },
+        4: {
+          title: 'Digital Media in Education',
+          excerpt: 'How to guide children\'s use of digital media effectively.',
+          category: 'technology',
+          author: 'Thomas Weber',
+          date: '8 January 2024',
+          readTime: '8',
+          image: '/blog/download (75).jpg',
+          featured: false,
+          tags: ['Technology', 'Media', 'Education']
+        },
+        5: {
+          title: 'Promoting Emotional Intelligence',
+          excerpt: 'Strategies for developing emotional competencies in children.',
+          category: 'psychology',
+          author: 'Dr. Lisa Chen',
+          date: '5 January 2024',
+          readTime: '6',
+          image: '/blog/Unlocking Student Success Through Formal Education.jpg',
+          featured: false,
+          tags: ['Emotions', 'Psychology', 'Children']
+        },
+        6: {
+          title: 'Bilingual Education: Advantages and Challenges',
+          excerpt: 'What you should know about raising bilingual children.',
+          category: 'language',
+          author: 'Dr. Carlos Rodriguez',
+          date: '3 January 2024',
+          readTime: '9',
+          image: '/blog/download (73).jpg',
+          featured: false,
+          tags: ['Bilingual', 'Language', 'Education']
+        }
       }
     },
     store: {
@@ -1072,7 +1488,8 @@ export const translations = {
           price: "149.99€",
           category: "learningSets",
           featured: true,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
         },
         2: {
           title: "Learning Cards Collection",
@@ -1080,7 +1497,8 @@ export const translations = {
           price: "29.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         3: {
           title: "Educational Videos",
@@ -1088,7 +1506,8 @@ export const translations = {
           price: "49.99€",
           category: "digitalResources",
           featured: true,
-          type: "digitalResource"
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         4: {
           title: "Learning Games Collection",
@@ -1096,7 +1515,8 @@ export const translations = {
           price: "39.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         5: {
           title: "Pronunciation Audio Files",
@@ -1104,7 +1524,8 @@ export const translations = {
           price: "19.99€",
           category: "digitalResources",
           featured: false,
-          type: "digitalResource"
+          type: "digitalResource",
+          image: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg"
         },
         6: {
           title: "Advanced Learning Set",
@@ -1112,7 +1533,8 @@ export const translations = {
           price: "199.99€",
           category: "learningSets",
           featured: false,
-          type: "learningSet"
+          type: "learningSet",
+          image: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg"
         }
       }
     },

@@ -3,6 +3,7 @@
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { CoursesSection } from "@/components/CoursesSection";
 import { OnlineLessonsSection } from "@/components/OnlineLessonsSection";
+import { HomeVisitSection } from "@/components/HomeVisitSection";
 import { ParentTrainingSection } from "@/components/ParentTrainingSection";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { BlogSection } from "@/components/BlogSection";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <HeroCarousel />
       <CoursesSection />
       <OnlineLessonsSection />
+      <HomeVisitSection />
       <StoreSection />
       <ParentTrainingSection />
       <WhyChooseUs />
