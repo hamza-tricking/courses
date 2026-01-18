@@ -12,7 +12,6 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
-  const [lessonsDropdownOpen, setLessonsDropdownOpen] = useState(false);
   const { language, setLanguage, t, isRTL } = useLanguage();
   const pathname = usePathname();
 
@@ -48,7 +47,7 @@ export function Header() {
   const navItems = [
     { href: '/', label: t.navigation.home },
     { href: '/courses', label: t.navigation.courses },
-    { href: '/lessons', label: t.navigation.lessons, hasDropdown: true },
+    { href: '/private-lessons', label: t.navigation.privateLessons },
     { href: '/services', label: t.navigation.services, hasDropdown: true },
     { href: '/store', label: t.navigation.store },
     { href: '/about', label: t.navigation.about },
@@ -58,11 +57,6 @@ export function Header() {
   const dropdownItems = [
     { href: '/parent-training', label: t.navigation.parentTraining },
     { href: '/blog', label: t.navigation.blog }
-  ];
-
-  const lessonsDropdownItems = [
-    { href: '/home-lessons', label: t.navigation.homeLessons },
-    { href: '/private-lessons', label: t.navigation.privateLessons }
   ];
 
   return (
@@ -108,15 +102,11 @@ export function Header() {
                       onMouseEnter={() => {
                         if (item.href === '/services') {
                           setServicesDropdownOpen(true);
-                        } else if (item.href === '/lessons') {
-                          setLessonsDropdownOpen(true);
                         }
                       }}
                       onMouseLeave={() => {
                         if (item.href === '/services') {
                           setServicesDropdownOpen(false);
-                        } else if (item.href === '/lessons') {
-                          setLessonsDropdownOpen(false);
                         }
                       }}
                     >
@@ -131,27 +121,23 @@ export function Header() {
                       {/* Dropdown Menu */}
                       <div 
                         className={`absolute top-full mt-2 w-64 bg-white rounded-xl shadow-2xl border border-green-200/50 overflow-hidden transition-all duration-300 transform ${
-                          (item.href === '/services' && servicesDropdownOpen) || (item.href === '/lessons' && lessonsDropdownOpen) 
+                          item.href === '/services' && servicesDropdownOpen
                             ? 'opacity-100 translate-y-0 visible' 
                             : 'opacity-0 -translate-y-2 invisible'
                         } ${isRTL ? 'right-0 left-auto' : 'left-0 right-auto'}`}
                         onMouseEnter={() => {
                           if (item.href === '/services') {
                             setServicesDropdownOpen(true);
-                          } else if (item.href === '/lessons') {
-                            setLessonsDropdownOpen(true);
                           }
                         }}
                         onMouseLeave={() => {
                           if (item.href === '/services') {
                             setServicesDropdownOpen(false);
-                          } else if (item.href === '/lessons') {
-                            setLessonsDropdownOpen(false);
                           }
                         }}
                       >
                         <div className="py-2">
-                          {(item.href === '/services' ? dropdownItems : lessonsDropdownItems).map((dropdownItem) => (
+                          {dropdownItems.map((dropdownItem) => (
                             <Link
                               key={dropdownItem.href}
                               href={dropdownItem.href}
@@ -229,8 +215,6 @@ export function Header() {
                         onClick={() => {
                           if (item.href === '/services') {
                             setServicesDropdownOpen(!servicesDropdownOpen);
-                          } else if (item.href === '/lessons') {
-                            setLessonsDropdownOpen(!lessonsDropdownOpen);
                           }
                         }}
                         className={`w-full py-3 px-4 text-gray-700 hover:text-green-600 hover:bg-[#E4EB9D] rounded-lg transition-all duration-300 font-semibold hover:translate-x-2 hover:shadow-md flex items-center justify-between ${
@@ -245,12 +229,12 @@ export function Header() {
                       
                       {/* Mobile Dropdown */}
                       <div className={`overflow-hidden transition-all duration-300 ${
-                        (item.href === '/services' && servicesDropdownOpen) || (item.href === '/lessons' && lessonsDropdownOpen) 
+                        item.href === '/services' && servicesDropdownOpen 
                           ? 'max-h-32 mt-2' 
                           : 'max-h-0'
                       }`}>
                         <div className="pl-4 space-y-2">
-                          {(item.href === '/services' ? dropdownItems : lessonsDropdownItems).map((dropdownItem) => (
+                          {dropdownItems.map((dropdownItem) => (
                             <Link
                               key={dropdownItem.href}
                               href={dropdownItem.href}
@@ -258,8 +242,6 @@ export function Header() {
                                 setIsMobileMenuOpen(false);
                                 if (item.href === '/services') {
                                   setServicesDropdownOpen(false);
-                                } else if (item.href === '/lessons') {
-                                  setLessonsDropdownOpen(false);
                                 }
                               }}
                               className="block py-2 px-4 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all duration-300 text-xs font-normal"

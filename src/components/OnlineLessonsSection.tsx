@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PricingCard } from './PricingCard';
 
@@ -9,11 +9,45 @@ export function OnlineLessonsSection() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (showReservationModal) {
+      document.body.style.overflow = 'hidden';
+      setScrollTop(window.pageYOffset || document.documentElement.scrollTop);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showReservationModal]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartY(e.clientY - (scrollTop || 0));
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    
+    const deltaY = e.clientY - startY;
+    const newScrollTop = scrollTop - deltaY;
+    window.scrollTo(0, newScrollTop);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   const plans = [
     {
@@ -106,7 +140,10 @@ export function OnlineLessonsSection() {
                   isRTL={isRTL}
                   compact={true}
                   isSelected={selectedPlan === plan.id}
-                  onSelect={() => setSelectedPlan(plan.id)}
+                  onSelect={() => {
+                    setSelectedPlan(plan.id);
+                    setShowReservationModal(true);
+                  }}
                 />
               </div>
             ))}
@@ -174,8 +211,35 @@ export function OnlineLessonsSection() {
 
         {/* Reservation Modal */}
         {showReservationModal && selectedPlan && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-black/50 flex items-start justify-center z-[99999] p-4 mt-4  pt-20 pb-20">
+            <div 
+              ref={modalRef}
+              className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[70vh] overflow-y-auto relative z-[100000] lg:overflow-y-visible lg:max-h-none lg:overflow-visible lg:cursor-move lg:touch-none lg:user-select-none"
+              onMouseDown={(e) => {
+                if (window.innerWidth >= 1024) {
+                  handleMouseDown(e);
+                }
+              }}
+              onMouseMove={(e) => {
+                if (window.innerWidth >= 1024) {
+                  handleMouseMove(e);
+                }
+              }}
+              onMouseUp={() => {
+                if (window.innerWidth >= 1024) {
+                  handleMouseUp();
+                }
+              }}
+              onMouseLeave={() => {
+                if (window.innerWidth >= 1024) {
+                  handleMouseUp();
+                }
+              }}
+              style={{ 
+                touchAction: window.innerWidth >= 1024 ? 'none' : 'auto',
+                userSelect: window.innerWidth >= 1024 ? 'none' : 'auto'
+              }}
+            >
               {/* Modal Header */}
               <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-t-xl">
                 <div className="flex justify-between items-start">
@@ -183,10 +247,7 @@ export function OnlineLessonsSection() {
                     <h3 className="text-xl font-bold mb-2">{t.onlineLessons.selectedPlan.reservationRules}</h3>
                     <p className="text-green-100 text-sm">{plans.find(p => p.id === selectedPlan)?.name}</p>
                   </div>
-                  <button
-                    onClick={() => setShowReservationModal(false)}
-                    className="text-white hover:text-green-100 transition-colors"
-                  >
+                  <button onClick={() => setShowReservationModal(false)} className="text-white hover:text-green-100 transition-colors">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -196,7 +257,6 @@ export function OnlineLessonsSection() {
 
               {/* Modal Content */}
               <div className="p-6">
-                
                 {/* Plan Details */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
@@ -222,16 +282,10 @@ export function OnlineLessonsSection() {
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 justify-end">
-                  <button
-                    onClick={() => setShowReservationModal(false)}
-                    className="px-6 py-2.5 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
-                  >
+                  <button onClick={() => setShowReservationModal(false)} className="px-6 py-2.5 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
                     {t.onlineLessons.selectedPlan.cancel}
                   </button>
-                  <a
-                    href="/reservation"
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-center"
-                  >
+                  <a href="/reservation" className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-center">
                     {t.onlineLessons.selectedPlan.goToReservation}
                   </a>
                 </div>

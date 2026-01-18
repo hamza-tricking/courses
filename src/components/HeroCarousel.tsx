@@ -81,7 +81,7 @@ export function HeroCarousel() {
       </div>
 
       {/* Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4 z-50">
         <span className="text-white text-sm font-medium">
           {currentSlide + 1}/{images.length}
         </span>
@@ -90,7 +90,7 @@ export function HeroCarousel() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 ease-in-out ${
+              className={`transition-all duration-300 ease-in-out cursor-pointer z-50 ${
                 index === currentSlide
                   ? 'w-8 h-2 bg-white'
                   : 'w-2 h-2 bg-white/50 hover:bg-white/75'
@@ -104,7 +104,7 @@ export function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={() => goToSlide((currentSlide - 1 + images.length) % images.length)}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-50 cursor-pointer"
         aria-label="Previous slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +113,7 @@ export function HeroCarousel() {
       </button>
       <button
         onClick={() => goToSlide((currentSlide + 1) % images.length)}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-50 cursor-pointer"
         aria-label="Next slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

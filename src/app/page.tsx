@@ -9,6 +9,7 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { BlogSection } from "@/components/BlogSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { StoreSection } from "@/components/StoreSection";
+import StoreBooksPage from "./store-books/page";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <OnlineLessonsSection />
       <HomeVisitSection />
       <StoreSection />
+            <StoreBooksPage/>
       <ParentTrainingSection />
       <WhyChooseUs />
       <BlogSection />

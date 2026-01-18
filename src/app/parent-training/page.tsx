@@ -9,7 +9,6 @@ export default function ParentTrainingPage() {
       <main className="">
         <ParentTrainingSection />
       </main>
-      <Footer />
     </div>
   );
 }

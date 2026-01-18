@@ -84,8 +84,9 @@ export function StoreSection() {
             {/* Mobile: Horizontal Scroll */}
             <div className="flex overflow-x-auto pb-4 lg:hidden">
               {featuredItems.map((item) => (
-                <div
+                <Link
                   key={item.id}
+                  href={item.title === "حقيبة التعلم المتكاملة" ? "/store-books" : "#"}
                   className="flex-none w-80 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group border border-white/10 mr-4"
                 >
                   {/* Product Image */}
@@ -111,19 +112,24 @@ export function StoreSection() {
                         {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                       </span>
                     </div>
-                    <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <Link 
+                      href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                            item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                      className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                    >
                       {t.store.viewDetails}
-                    </button>
+                    </Link>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
 
             {/* Desktop: Grid */}
             <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredItems.map((item) => (
-                <div
+                <Link
                   key={item.id}
+                  href={item.title === "حقيبة التعلم المتكاملة" ? "/store-books" : "#"}
                   className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group border border-white/10"
                 >
                   {/* Product Image */}
@@ -149,11 +155,15 @@ export function StoreSection() {
                         {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                       </span>
                     </div>
-                    <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <Link 
+                      href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                            item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                      className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                    >
                       {t.store.viewDetails}
-                    </button>
+                    </Link>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -188,9 +198,13 @@ export function StoreSection() {
                       {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                     </span>
                   </div>
-                  <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <Link 
+                    href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                          item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                    className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                  >
                     {t.store.viewDetails}
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -223,9 +237,13 @@ export function StoreSection() {
                       {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                     </span>
                   </div>
-                  <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                  <Link 
+                    href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                          item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                    className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
+                  >
                     {t.store.viewDetails}
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -235,7 +253,14 @@ export function StoreSection() {
         {/* Load More Button */}
         {filteredItems.length > 6 && (
           <div className="text-center mt-8 sm:mt-12">
-            <button className="bg-white text-green-700 px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
+            <button 
+              onClick={() => {
+                // For now, just show all items
+                // In a real implementation, this would load more items from an API
+                console.log('Load more products');
+              }}
+              className="bg-white text-green-700 px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base"
+            >
               {t.store.loadMore}
             </button>
           </div>

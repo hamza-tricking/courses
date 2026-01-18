@@ -6,8 +6,39 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function ReservationPage() {
   const { t, isRTL, language } = useLanguage();
   const [selectedPackage, setSelectedPackage] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    notes: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const courses = [
+    {
+      id: 'a1',
+      title: t.home.courses.a1,
+      description: t.courses.levels.a1.description,
+      level: 'A1',
+      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png'
+    },
+    {
+      id: 'a2',
+      title: t.home.courses.a2,
+      description: t.courses.levels.a2.description,
+      level: 'A2',
+      image: '/Courses photos/Gemini_Generated_Image_i6j71ei6j71ei6j7.png'
+    },
+    {
+      id: 'b1',
+      title: t.home.courses.b1,
+      description: t.courses.levels.b1.description,
+      level: 'B1',
+      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png'
+    }
+  ];
 
   const packages = [
     {
@@ -39,86 +70,38 @@ export default function ReservationPage() {
     }
   ];
 
-  const timeSlots = [
-    '09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '18:00', '19:30'
-  ];
-
-  const getDaysOfWeek = () => {
-    const days = isRTL ? ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'] : 
-               language === 'de' ? ['Samstag', 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'] :
-               ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const today = new Date();
-    const currentDay = today.getDay();
-    
-    // Start from current day
-    const reorderedDays = [...days.slice(currentDay), ...days.slice(0, currentDay)];
-    
-    return reorderedDays.map((day, index) => {
-      const date = new Date(today);
-      date.setDate(today.getDate() + index);
-      
-      return {
-        name: day,
-        date: date.toISOString().split('T')[0],
-        dayNumber: date.getDate()
-      };
-    });
+  const handleCourseSelect = (courseId: string) => {
+    setSelectedCourse(courseId);
   };
-
-  const days = getDaysOfWeek();
 
   const handlePackageSelect = (packageId: string) => {
     setSelectedPackage(packageId);
-    setSelectedDate('');
-    setSelectedTime('');
   };
 
-  const handleReservation = () => {
-    if (selectedPackage && selectedDate && selectedTime) {
-      const selectedPkg = packages.find(p => p.id === selectedPackage);
-      alert(`${t.reservation?.bookingConfirmed || 'Booking confirmed'}: ${selectedPkg?.name} ${t.reservation?.onDate || 'on'} ${selectedDate} ${t.reservation?.atTime || 'at'} ${selectedTime}`);
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const getAvailableSlots = (dayName: string) => {
-    if (!selectedPackage) return [];
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Here you would typically send the data to your backend
+    // For now, we'll just simulate a submission
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
     const selectedPkg = packages.find(p => p.id === selectedPackage);
-    if (!selectedPkg) return [];
-
-    // Map day names to day indices for consistent comparison
-    const dayToIndex: { [key: string]: number } = {
-      // Arabic
-      'السبت': 6, 'الأحد': 0, 'الإثنين': 1, 'الثلاثاء': 2, 'الأربعاء': 3, 'الخميس': 4, 'الجمعة': 5,
-      // English
-      'Saturday': 6, 'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5,
-      // German
-      'Samstag': 6, 'Sonntag': 0, 'Montag': 1, 'Dienstag': 2, 'Mittwoch': 3, 'Donnerstag': 4, 'Freitag': 5
-    };
-
-    const dayIndex = dayToIndex[dayName];
-    if (dayIndex === undefined) return [];
-
-    // Get available days based on package (using day indices)
-    let availableDayIndices: number[] = [];
+    alert(`${t.reservation?.bookingConfirmed || 'Booking confirmed'}: ${selectedPkg?.name}`);
+    setIsSubmitting(false);
     
-    if (selectedPackage === 'basic') {
-      // Only Saturday
-      availableDayIndices = [6];
-    } else if (selectedPackage === 'standard') {
-      // Sunday and Monday
-      availableDayIndices = [0, 1];
-    } else if (selectedPackage === 'premium') {
-      // Sunday, Monday, Tuesday
-      availableDayIndices = [0, 1, 2];
-    }
-    
-    // Check if current day is in available days
-    if (!availableDayIndices.includes(dayIndex)) {
-      return [];
-    }
-    
-    return timeSlots.slice(0, selectedPkg.maxSlots);
+    // Reset form
+    setFormData({ name: '', email: '', phone: '', address: '', notes: '' });
+    setSelectedPackage('');
+    setSelectedCourse('');
   };
 
   return (
@@ -126,147 +109,219 @@ export default function ReservationPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-800 via-emerald-700 to-green-800 bg-clip-text text-transparent mb-4">
-            {t.reservation?.title || 'حجز الدروس الخصوصية'}
+          <h1 className="text-3xl py-2 sm:text-4xl font-bold bg-gradient-to-r from-green-800 via-emerald-700 to-green-800 bg-clip-text text-transparent mb-4">
+            {t.reservation?.title || 'الكورسات'}
           </h1>
           <p className="text-gray-600 text-lg">
             {t.reservation?.subtitle || 'اختر الباقة المناسبة لك واحجز وقتك المفضل'}
           </p>
         </div>
 
-        {/* Package Selection */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">{t.reservation?.selectPackage || 'اختر الباقة:'}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.id}
-                onClick={() => handlePackageSelect(pkg.id)}
-                className={`p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                  selectedPackage === pkg.id
-                    ? 'border-green-500 bg-green-50 shadow-lg'
-                    : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
-                }`}
-              >
-                <div className={`bg-gradient-to-r ${pkg.color} text-white p-3 rounded-lg mb-4`}>
-                  <h3 className="font-bold text-lg">{pkg.name}</h3>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-gray-700">
-                    <span className="font-semibold">{t.reservation?.sessionsLabel || 'Sessions:'}</span> {pkg.sessions}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-semibold">{t.reservation?.priceLabel || 'Price:'}</span> 
-                    <span className="text-green-600 font-bold text-xl ml-2">{pkg.price}</span>
-                  </p>
-                  <p className="text-gray-600 text-sm">
-                    <span className="font-semibold">{t.reservation?.maxStudents?.replace('{count}', pkg.maxSlots.toString()) || `Max ${pkg.maxSlots} students available`}</span>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Calendar */}
-        {selectedPackage && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">{t.reservation?.selectDayTime || 'Select Day and Time:'}</h2>
-            
-            {/* Days of Week */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-6">
-              {days.map((day) => {
-                const availableSlots = getAvailableSlots(day.name);
-                const hasAvailability = availableSlots.length > 0;
-                
-                return (
+        {/* Registration Form with Course and Package Selection */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-6 text-gray-800">{t.reservation?.registerForm || 'Registration Form'}</h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Course Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                {t.courses?.title || 'Select Course'} *
+              </label>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {courses.map((course) => (
                   <div
-                    key={day.date}
-                    onClick={() => hasAvailability ? setSelectedDate(day.date) : null}
-                    className={`p-4 rounded-lg border-2 text-center transition-all duration-300 ${
-                      selectedDate === day.date
-                        ? 'border-green-500 bg-green-50'
-                        : hasAvailability
-                        ? 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md cursor-pointer'
-                        : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
+                    key={course.id}
+                    onClick={() => handleCourseSelect(course.id)}
+                    className={`p-3 rounded-lg border-2 cursor-pointer transition-all duration-300 ${
+                      selectedCourse === course.id
+                        ? 'border-green-500 bg-green-50 shadow-md'
+                        : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-sm'
                     }`}
                   >
-                    <div className="font-semibold text-sm mb-1">{day.name}</div>
-                    <div className="text-2xl font-bold">{day.dayNumber}</div>
-                    {!hasAvailability && (
-                      <div className="text-xs text-red-500 mt-1">{t.reservation?.notAvailable || 'Not Available'}</div>
-                    )}
+                    <div className="flex items-center space-x-3">
+                      <img src={course.image} alt={course.title} className="w-12 h-12 object-cover rounded-lg" />
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-sm text-gray-800">{course.title}</h3>
+                        <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full font-semibold">
+                          {course.level}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
-            {/* Time Slots */}
-            {selectedDate && (
+            {/* Package Selection */}
+            {selectedCourse && (
               <div>
-                <h3 className="text-lg font-semibold mb-3 text-gray-800">{t.reservation?.availableTimes || 'Available Times:'}</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {getAvailableSlots(days.find(d => d.date === selectedDate)?.name || '').map((time) => (
-                    <button
-                      key={time}
-                      onClick={() => setSelectedTime(time)}
-                      className={`p-3 rounded-lg border-2 transition-all duration-300 ${
-                        selectedTime === time
-                          ? 'border-green-500 bg-green-500 text-white'
-                          : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-md'
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  {t.reservation?.selectPackage || 'اختر الباقة:'} *
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  {packages.map((pkg) => (
+                    <div
+                      key={pkg.id}
+                      onClick={() => handlePackageSelect(pkg.id)}
+                      className={`p-3 rounded-lg border-2 cursor-pointer transition-all duration-300 ${
+                        selectedPackage === pkg.id
+                          ? 'border-green-500 bg-green-50 shadow-md'
+                          : 'border-gray-200 bg-white hover:border-green-300 hover:shadow-sm'
                       }`}
                     >
-                      {time}
-                    </button>
+                      <div className={`bg-gradient-to-r ${pkg.color} text-white p-2 rounded mb-2`}>
+                        <h3 className="font-bold text-sm">{pkg.name}</h3>
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-xs text-gray-700">
+                          <span className="font-semibold">{t.reservation?.sessionsLabel || 'Sessions:'}</span> {pkg.sessions}
+                        </p>
+                        <p className="text-xs text-gray-700">
+                          <span className="font-semibold">{t.reservation?.priceLabel || 'Price:'}</span> 
+                          <span className="text-green-600 font-bold text-sm ml-1">{pkg.price}</span>
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {t.common?.taxNotice || 'The invoice amount does not include VAT according to § 19 UStG.'}
+                        </p>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
             )}
-          </div>
-        )}
 
-        {/* Reservation Summary */}
-        {selectedPackage && selectedDate && selectedTime && (
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800">{t.reservation?.reservationSummary || 'Reservation Summary:'}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-gray-700">
-                  <span className="font-semibold">{t.reservation?.packageLabel || 'Package:'}</span> {packages.find(p => p.id === selectedPackage)?.name}
-                </p>
-                <p className="text-gray-700">
-                  <span className="font-semibold">{t.reservation?.dateLabel || 'Date:'}</span> {selectedDate}
-                </p>
-                <p className="text-gray-700">
-                  <span className="font-semibold">{t.reservation?.timeLabel || 'Time:'}</span> {selectedTime}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-700">
-                  <span className="font-semibold">{t.reservation?.priceLabel || 'Price:'}</span> 
-                  <span className="text-green-600 font-bold text-xl ml-2">
-                    {packages.find(p => p.id === selectedPackage)?.price}
-                  </span>
-                </p>
-                <p className="text-gray-600 text-sm mt-2">
-                  {t.reservation?.confirmationNote || 'Reservation confirmation will be sent via email'}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+            {/* Personal Information */}
+            {selectedPackage && selectedCourse && (
+              <>
+                <div className="border-t pt-6">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800">Personal Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t.reservation?.name || 'Full Name'} *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
 
-        {/* Confirm Button */}
-        {selectedPackage && selectedDate && selectedTime && (
-          <div className="text-center">
-            <button
-              onClick={handleReservation}
-              className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-lg"
-            >
-              {t.reservation?.confirmButton || 'Confirm Booking'}
-            </button>
-          </div>
-        )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t.reservation?.email || 'Email'} *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t.reservation?.phone || 'Phone'} *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t.reservation?.address || 'Address'}
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+                  </div>
+                </div>
+
+                {/* Additional Notes */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t.reservation?.notes || 'Additional Notes'}
+                  </label>
+                  <textarea
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleInputChange}
+                    rows={3}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    placeholder={t.reservation?.notesPlaceholder || 'Any special requirements or questions...'}
+                  />
+                </div>
+
+                {/* Course and Package Summary */}
+                <div className="bg-emerald-50 rounded-lg p-4">
+                  <h3 className="font-semibold text-gray-800 mb-3">{t.reservation?.selectedPackage || 'Selected Package'}</h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-700">{t.courses?.title || 'Course'}:</span>
+                      <span className="font-medium text-sm">{courses.find(c => c.id === selectedCourse)?.title}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-700">{t.reservation?.selectedPackage || 'Package'}:</span>
+                      <span className="font-medium text-sm">{packages.find(p => p.id === selectedPackage)?.name}</span>
+                    </div>
+                        <p className="text-xs text-gray-600 ">
+                          {t.common?.taxNotice || 'The invoice amount does not include VAT according to § 19 UStG.'}
+                        </p>
+                    <div className="flex justify-between items-center">
+                      
+                      <span className="text-gray-700">{t.reservation?.priceLabel || 'Price'}</span>
+                    
+                      <span className="text-green-600 font-bold text-lg">
+                        {packages.find(p => p.id === selectedPackage)?.price}
+                      </span>
+                      
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPackage('');
+                      setSelectedCourse('');
+                    }}
+                    className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    {t.reservation?.cancel || 'Cancel'}
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    {isSubmitting 
+                      ? (t.reservation?.submitting || 'Submitting...')
+                      : (t.reservation?.confirmButton || 'Confirm Booking')
+                    }
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   );

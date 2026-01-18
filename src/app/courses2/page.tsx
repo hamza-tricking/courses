@@ -4,33 +4,32 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
 import { useState } from 'react';
 import { CourseModal } from '@/components/CourseModal';
-import { HomeVisitSection } from '@/components/HomeVisitSection';
 
-export default function CoursesPage() {
+export default function Courses2Page() {
   const { t, isRTL } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const courses = [
     {
-      title: t.home.courses.a1,
+      title: t.home.courses.a2,
       description: t.courses.levels.a1.description,
       level: 'A1',
       image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png'
     },
     {
-      title: t.home.courses.a1,
+      title: t.home.courses.a2,
       description: t.courses.levels.a2.description,
       level: 'A2',
       image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=300&fit=crop'
     },
     {
-      title: t.home.courses.a1,
+      title: t.home.courses.a2,
       description: t.courses.levels.b1.description,
       level: 'B1',
       image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop'
     },
     {
-      title: t.home.courses.a1,
+      title: t.home.courses.a2,
       description: t.courses.levels.b2.description,
       level: 'B2',
       image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop'
@@ -42,7 +41,7 @@ export default function CoursesPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`text-center mb-12 ${isRTL ? 'rtl' : ''}`}>
           <h1 className="text-4xl font-bold text-green-900 mb-4">
-            {t.home.courses.a1}
+            {t.home.courses.a2}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {t.courses.description}
@@ -84,8 +83,6 @@ export default function CoursesPage() {
           ))}
         </div>
       </div>
-      
-      <HomeVisitSection />
       
       <CourseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>

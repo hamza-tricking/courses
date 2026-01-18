@@ -11,19 +11,22 @@ export function CoursesSection() {
       title: t.home.courses.a1,
       description: t.courses.levels.a1.description,
       level: 'A1',
-      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png'
+      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png',
+      href: '/courses'
     },
     {
       title: t.home.courses.a2,
       description: t.courses.levels.a2.description,
       level: 'A2',
-      image: '/Courses photos/Gemini_Generated_Image_i6j71ei6j71ei6j7.png'
+      image: '/Courses photos/Gemini_Generated_Image_i6j71ei6j71ei6j7.png',
+      href: '/courses2'
     },
     {
       title: t.home.courses.b1,
       description: t.courses.levels.b1.description,
       level: 'B1',
-      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png'
+      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png',
+      href: '/courses3'
     }
   ];
 
@@ -59,6 +62,7 @@ export function CoursesSection() {
                   level={course.level}
                   isRTL={isRTL}
                   compact={true}
+                  href={course.href}
                 />
               </div>
             ))}
@@ -76,6 +80,7 @@ export function CoursesSection() {
               level={course.level}
               isRTL={isRTL}
               compact={false}
+              href={course.href}
             />
           ))}
         </div>

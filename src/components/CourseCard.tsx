@@ -11,15 +11,16 @@ interface CourseCardProps {
   level: string;
   isRTL?: boolean;
   compact?: boolean;
+  href?: string;
 }
 
-export function CourseCard({ title, description, image, level, isRTL = false, compact = false }: CourseCardProps) {
+export function CourseCard({ title, description, image, level, isRTL = false, compact = false, href = "/courses" }: CourseCardProps) {
   const { t } = useLanguage();
   
   if (compact) {
     // Mobile compact version
     return (
-      <Link href="/courses" className="block group">
+      <Link href={href} className="block group">
         <div className={`bg-gradient-to-br from-white via-gray-50 to-green-50/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 border border-gray-100/50 hover:border-green-300/50 backdrop-blur-sm ${isRTL ? 'text-right' : 'text-left'}`}>
           {/* Compact Image */}
           <div className="relative h-32 bg-gradient-to-br from-green-100 to-green-200 border-b border-green-200/40">
@@ -58,7 +59,7 @@ export function CourseCard({ title, description, image, level, isRTL = false, co
   
   // Original version for tablet and desktop
   return (
-    <Link href="/courses" className="block group">
+    <Link href={href} className="block group">
       <div className={`bg-gradient-to-br from-white via-gray-50 to-green-50/20 rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 border border-gray-100/50 hover:border-green-300/50 backdrop-blur-sm ${isRTL ? 'text-right' : 'text-left'}`}>
         {/* Image */}
         <div className="relative h-48 bg-gradient-to-br from-green-100 to-green-200 border-b border-green-200/40">

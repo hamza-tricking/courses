@@ -9,7 +9,6 @@ export default function BlogPage() {
       <main className="">
         <BlogSection />
       </main>
-      <Footer />
     </div>
   );
 }

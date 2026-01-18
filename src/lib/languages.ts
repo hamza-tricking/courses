@@ -4,17 +4,16 @@ export const translations = {
   de: {
     navigation: {
       home: "Startseite",
-      courses: "Kurse",
-      lessons: "Lektionen",
-      parentTraining: "Elterntraining",
+      courses: "Unsere Kurse",
+      privateLessons: "Preise",
+      parentTraining: "Familienberatung",
       blog: "Blog", 
       services: "Dienstleistungen",
       store: "Store",
       privacy: "Datenschutz",
       about: "Über uns",
       contact: "Kontakt",
-      homeLessons: "Hausaufgaben-Lektionen",
-      privateLessons: "Private Lektionen"
+      homeLessons: "Hausaufgaben-Lektionen"
     },
     home: {
       hero: {
@@ -158,7 +157,8 @@ export const translations = {
     },
     common: {
       learnMore: "Mehr erfahren",
-      mostPopular: "Am beliebtesten"
+      mostPopular: "Am beliebtesten",
+      taxNotice: "Im ausgewiesenen Rechnungsbetrag ist gemäß § 19 UStG keine Umsatzsteuer enthalten."
     },
     onlineLessons: {
       title: "Online-Lektionen",
@@ -373,9 +373,14 @@ export const translations = {
     store: {
       title: "Lisan Arabi Online-Shop",
       subtitle: "Wir bieten Lernmaterialien, die Ihnen beim Selbststudium helfen:",
+      bookCollection: "Buchsammlung",
+      bookCollectionSubtitle: "Entdecken Sie unsere sorgfältig ausgewählte Sammlung von Bildungsbüchern und Lernressourcen",
+      videoCollection: "Videosammlung",
+      videoCollectionSubtitle: "Entdecken Sie unsere umfassende Sammlung von Lehrvideos, die entwickelt wurden, um Ihr Arabisch-Lernerlebnis zu verbessern",
+      backToHome: "Zurück zur Startseite",
       categories: {
         all: "Alle",
-        learningSets: "Lernsets (Offline-Lernsets)",
+        learningSets: "Lernsets (Offline)",
         digitalResources: "Digitale Ressourcen"
       },
       featured: "Empfohlen",
@@ -384,6 +389,17 @@ export const translations = {
       loadMore: "Mehr Produkte anzeigen",
       learningSet: "Lernset",
       digitalResource: "Digitale Ressource",
+      noVideosFound: "Keine Videos gefunden",
+      tryDifferentCategory: "Versuchen Sie eine andere Kategorie",
+      watchNow: "Jetzt ansehen",
+      videoCategories: {
+        alphabet: "Alphabet",
+        pronunciation: "Aussprache",
+        grammar: "Grammatik",
+        conversation: "Gespräch",
+        vocabulary: "Wortschatz",
+        writing: "Schreiben"
+      },
       products: {
         1: {
           title: "Komplettes Lernset",
@@ -481,7 +497,7 @@ export const translations = {
       }
     },
     reservation: {
-      title: "Private-Lektionen Reservierung",
+      title: "Kurse Reservierung",
       subtitle: "Wählen Sie das richtige Paket für Sie und buchen Sie Ihre bevorzugte Zeit",
       packages: {
         basic: {
@@ -512,23 +528,32 @@ export const translations = {
       confirmButton: "Buchung bestätigen",
       bookingConfirmed: "Buchung bestätigt",
       onDate: "am",
-      atTime: "um"
+      atTime: "um",
+      registerForm: "Anmeldeformular",
+      name: "Vollständiger Name",
+      email: "E-Mail",
+      phone: "Telefon",
+      address: "Adresse",
+      notes: "Zusätzliche Hinweise",
+      notesPlaceholder: "Besondere Wünsche oder Fragen...",
+      selectedPackage: "Ausgewähltes Paket",
+      cancel: "Abbrechen",
+      submitting: "Wird gesendet..."
     }
   },
   ar: {
     navigation: {
       home: "الرئيسية",
-      courses: "الدورات",
-      lessons: "الدروس",
+      courses: "دوراتنا",
+      privateLessons: "الباقات",
       services: "الخدمات", 
       store: "المتجر",
-      parentTraining: "الدورات التدريبية",
+      parentTraining: "استشارات الأسرية",
       blog: "المدونة",
       privacy: "سياسة الخصوصية",
       about: "من نحن",
       contact: "اتصل بنا",
-      homeLessons: "الدروس المنزلية",
-      privateLessons: "الدروس الخصوصية"
+      homeLessons: "الدروس المنزلية"
     },
     home: {
       hero: {
@@ -672,7 +697,8 @@ export const translations = {
     },
     common: {
       learnMore: "اعرف المزيد",
-      mostPopular: "الأكثر شعبية"
+      mostPopular: "الأكثر شعبية",
+      taxNotice: "المبلغ المحدد في الفاتورة لا يحتوي على ضريبة القيمة المضافة وفقاً للمادة 19 من قانون ضريبة القيمة المضافة."
     },
     parentTraining: {
       title: "الإرشاد الأبوي وتطوير اللغة",
@@ -769,7 +795,7 @@ export const translations = {
         goToReservation: "انتقل إلى صفحة الحجز"
       },
       reservation: {
-        title: "حجز الدروس الخصوصية",
+        title: "الكورسات",
         subtitle: "اختر الباقة المناسبة لك واحجز وقتك المفضل",
         packages: {
           basic: {
@@ -956,6 +982,11 @@ export const translations = {
     store: {
       title: "متجر \"لسان عربي\" (LAA Online-Shop)",
       subtitle: "نوفر أدوات تعليمية تساعدك على التعلم الذاتي:",
+      bookCollection: "مجموعة الكتب",
+      bookCollectionSubtitle: "اكتشف مجموعتنا المختارة بعناية من الكتب التعليمية وموارد التعلم",
+      videoCollection: "مجموعة الفيديوهات التعليمية",
+      videoCollectionSubtitle: "اكتشف مجموعتنا الشاملة من الفيديوهات التعليمية المصممة لتعزيز تجربة تعلم اللغة العربية",
+      backToHome: "العودة إلى الرئيسية",
       categories: {
         all: "الكل",
         learningSets: "حقائب التعلم (Offline-Lernsets)",
@@ -967,6 +998,17 @@ export const translations = {
       loadMore: "عرض المزيد من المنتجات",
       learningSet: "حقيبة تعلم",
       digitalResource: "مورد رقمي",
+      noVideosFound: "لا توجد فيديوهات",
+      tryDifferentCategory: "جرب تحديد فئة مختلفة",
+      watchNow: "شاهد الآن",
+      videoCategories: {
+        alphabet: "الأبجدية",
+        pronunciation: "النطق",
+        grammar: "القواعد",
+        conversation: "المحادثة",
+        vocabulary: "المفردات",
+        writing: "الكتابة"
+      },
       products: {
         1: {
           title: "حقيبة التعلم المتكاملة",
@@ -1025,7 +1067,7 @@ export const translations = {
       }
     },
     reservation: {
-      title: "حجز الدروس الخصوصية",
+      title: "الكورسات",
       subtitle: "اختر الباقة المناسبة لك واحجز وقتك المفضل",
       packages: {
         basic: {
@@ -1056,23 +1098,32 @@ export const translations = {
       confirmButton: "تأكيد الحجز",
       bookingConfirmed: "تم الحجز",
       onDate: "في",
-      atTime: "الساعة"
+      atTime: "الساعة",
+      registerForm: "نموذج التسجيل",
+      name: "الاسم الكامل",
+      email: "البريد الإلكتروني",
+      phone: "رقم الهاتف",
+      address: "العنوان",
+      notes: "ملاحظات إضافية",
+      notesPlaceholder: "أي متطلبات خاصة أو أسئلة...",
+      selectedPackage: "الباقة المختارة",
+      cancel: "إلغاء",
+      submitting: "جاري الإرسال..."
     }
   },
   en: {
     navigation: {
       home: "Home",
-      courses: "Courses",
-      lessons: "Lessons",
+      courses: "Our Courses",
+      privateLessons: "Prices",
       services: "Services",
       store: "Store",
-      parentTraining: "Parent Training",
+      parentTraining: "Family Counseling",
       blog: "Blog",
       privacy: "Privacy Policy",
       about: "About",
       contact: "Contact",
-      homeLessons: "Homework Lessons",
-      privateLessons: "Private Lessons"
+      homeLessons: "Homework Lessons"
     },
     home: {
       hero: {
@@ -1216,7 +1267,8 @@ export const translations = {
     },
     common: {
       learnMore: "Learn More",
-      mostPopular: "Most Popular"
+      mostPopular: "Most Popular",
+      taxNotice: "The invoice amount does not include VAT according to § 19 UStG."
     },
     onlineLessons: {
       title: "Online Private Lessons",
@@ -1470,17 +1522,33 @@ export const translations = {
     store: {
       title: "Lisan Arabi Online-Shop",
       subtitle: "We provide educational tools to help you with self-learning:",
+      bookCollection: "Book Collection",
+      bookCollectionSubtitle: "Discover our curated selection of educational books and learning resources",
+      videoCollection: "Educational Videos Collection",
+      videoCollectionSubtitle: "Discover our comprehensive collection of educational videos designed to enhance your Arabic learning experience",
+      backToHome: "Back to Home",
       categories: {
         all: "All",
-        learningSets: "Learning Sets (Offline-Lernsets)",
+        learningSets: "Learning Sets (Offline)",
         digitalResources: "Digital Resources"
       },
       featured: "Featured",
       viewDetails: "View Details",
       view: "View",
-      loadMore: "View More Products",
+      loadMore: "Load More Products",
       learningSet: "Learning Set",
       digitalResource: "Digital Resource",
+      noVideosFound: "No videos found",
+      tryDifferentCategory: "Try selecting a different category",
+      watchNow: "Watch Now",
+      videoCategories: {
+        alphabet: "Alphabet",
+        pronunciation: "Pronunciation",
+        grammar: "Grammar",
+        conversation: "Conversation",
+        vocabulary: "Vocabulary",
+        writing: "Writing"
+      },
       products: {
         1: {
           title: "Complete Learning Set",
@@ -1539,7 +1607,7 @@ export const translations = {
       }
     },
     reservation: {
-      title: "Private Lessons Reservation",
+      title: "Courses Reservation",
       subtitle: "Choose the right package for you and book your preferred time",
       packages: {
         basic: {
@@ -1570,7 +1638,17 @@ export const translations = {
       confirmButton: "Confirm Booking",
       bookingConfirmed: "Booking confirmed",
       onDate: "on",
-      atTime: "at"
+      atTime: "at",
+      registerForm: "Registration Form",
+      name: "Full Name",
+      email: "Email",
+      phone: "Phone",
+      address: "Address",
+      notes: "Additional Notes",
+      notesPlaceholder: "Any special requirements or questions...",
+      selectedPackage: "Selected Package",
+      cancel: "Cancel",
+      submitting: "Submitting..."
     },
   }
 };

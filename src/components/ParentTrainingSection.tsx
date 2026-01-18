@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useRouter } from 'next/navigation';
 
 export function ParentTrainingSection() {
   const { t, isRTL, language } = useLanguage();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('family');
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
 
   const trainingCards = [
     {
@@ -28,6 +31,87 @@ export function ParentTrainingSection() {
     { id: 'family', label: t.parentTraining?.tabs?.family || 'Parent Counseling', icon: '🏠' },
     { id: 'life', label: t.parentTraining?.tabs?.life || 'Language Coaching', icon: '🌟' }
   ];
+
+  const toggleFeature = (feature: string, cardIndex: number) => {
+    setSelectedFeatures(prev => {
+      // Remove any existing selection from this card
+      const filtered = prev.filter(f => !f.startsWith(`card-${cardIndex}-`));
+      
+      // If clicking same feature, deselect it
+      const featureKey = `card-${cardIndex}-${feature}`;
+      if (prev.includes(featureKey)) {
+        return filtered;
+      }
+      
+      // Otherwise, select new feature
+      return [...filtered, featureKey];
+    });
+  };
+
+  const handleLearnMore = (cardIndex: number) => {
+    const selectedFeature = selectedFeatures.find(f => f.startsWith(`card-${cardIndex}-`));
+    
+    if (selectedFeature) {
+      const feature = selectedFeature.replace(`card-${cardIndex}-`, '');
+      
+      // Map features to their respective pages
+      const featureRoutes: { [key: string]: string } = {
+        // Parent Counseling features (card 0) - Arabic
+        'تقنيات التواصل': '/parent-training/communication',
+        'حل النزاعات': '/parent-training/conflict-resolution',
+        'وضع الحدود': '/parent-training/boundaries',
+        'التربية الإيجابية': '/parent-training/positive-parenting',
+        
+        // Language Coaching features (card 1) - Arabic
+        'الكفاءة اللغوية': '/services/language-coaching',
+        'مهارات التواصل': '/services/communication-skills',
+        'التطور الشخصي': '/services/personal-development',
+        'التطوير المهني': '/services/professional-development',
+        
+        // Parent Counseling features (card 0) - German
+        'Kommunikationstechniken': '/parent-training/communication',
+        'Konfliktlösung': '/parent-training/conflict-resolution',
+        'Grenzen setzen': '/parent-training/boundaries',
+        'Positive Erziehung': '/parent-training/positive-parenting',
+        
+        // Language Coaching features (card 1) - German
+        'Sprachkompetenz': '/services/language-coaching',
+        'Kommunikationsfähigkeit': '/services/communication-skills',
+        'Persönlichkeitsentwicklung': '/services/personal-development',
+        'Berufliche Weiterbildung': '/services/professional-development',
+        
+        // Fallback English names
+        'Communication techniques': '/parent-training/communication',
+        'Conflict resolution': '/parent-training/conflict-resolution',
+        'Setting boundaries': '/parent-training/boundaries',
+        'Positive parenting': '/parent-training/positive-parenting',
+        'Language competence': '/services/language-coaching',
+        'Communication skills': '/services/communication-skills',
+        'Personal development': '/services/personal-development',
+        'Professional development': '/services/professional-development'
+      };
+      
+      const route = featureRoutes[feature];
+      if (route) {
+        router.push(route);
+      } else {
+        // For German language, navigate to /parent-training page
+        if (language === 'de') {
+          router.push('/parent-training');
+        } else {
+          // Fallback to general page if specific route not found
+          router.push(cardIndex === 0 ? '/parent-training' : '/services');
+        }
+      }
+    } else {
+      // No feature selected, navigate to /parent-training for German, general page for others
+      if (language === 'de') {
+        router.push('/parent-training');
+      } else {
+        router.push(cardIndex === 0 ? '/parent-training' : '/services');
+      }
+    }
+  };
 
   return (
     <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-100 via-green-50 to-emerald-100 text-gray-900 relative overflow-hidden">
@@ -54,18 +138,13 @@ export function ParentTrainingSection() {
         <div className="flex justify-center mb-8 sm:mb-12">
           <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 flex-wrap justify-center gap-2">
             {tabs.map((tab) => (
-              <button
+              <div
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 flex items-center space-x-2 text-sm sm:text-base ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-black shadow-lg transform scale-105'
-                    : 'text-gray-800 hover:text-black hover:bg-green-50'
-                }`}
+                className="px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold flex items-center space-x-2 text-sm sm:text-base text-gray-800"
               >
                 <span>{tab.icon}</span>
                 <span>{tab.label}</span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -95,20 +174,33 @@ export function ParentTrainingSection() {
                   {/* Card Content */}
                   <div className="p-4">
                     <h4 className="font-semibold text-black mb-3 text-xs">Features:</h4>
-                    <ul className="space-y-2">
+                    <div className="space-y-2">
                       {card.features.map((feature: string, itemIndex: number) => (
-                        <li
+                        <button
                           key={itemIndex}
-                          className="flex items-center space-x-2 text-green-600/80 hover:text-green-800 transition-colors text-xs"
+                          onClick={() => toggleFeature(feature, index)}
+                          className={`w-full text-left px-3 py-2 rounded-lg border transition-all duration-300 text-xs ${
+                            selectedFeatures.includes(`card-${index}-${feature}`)
+                              ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-500 shadow-md'
+                              : 'bg-white/80 text-gray-700 border-gray-300 hover:border-green-400 hover:bg-green-50'
+                          }`}
+                          disabled={false}
                         >
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex-shrink-0"></div>
-                          <span>{feature}</span>
-                        </li>
+                          <span className="flex items-center justify-between">
+                            <span>{feature}</span>
+                            {selectedFeatures.includes(`card-${index}-${feature}`) && (
+                              <span className="text-white">✓</span>
+                            )}
+                          </span>
+                        </button>
                       ))}
-                    </ul>
+                    </div>
 
                     {/* CTA Button */}
-                    <button className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-xs">
+                    <button 
+                      onClick={() => handleLearnMore(index)}
+                      className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-xs"
+                    >
                       {t.parentTraining?.cta?.learnMore || 'Learn More'}
                     </button>
                   </div>
@@ -142,20 +234,33 @@ export function ParentTrainingSection() {
               {/* Card Content */}
               <div className="p-4 sm:p-6">
                 <h4 className="font-semibold text-black mb-3 sm:mb-4 text-sm sm:text-base">Features:</h4>
-                <ul className="space-y-2 sm:space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {card.features.map((feature: string, itemIndex: number) => (
-                    <li
+                    <button
                       key={itemIndex}
-                      className="flex items-center space-x-2 sm:space-x-3 text-black group-hover:text-green-800 transition-colors text-sm sm:text-base"
+                      onClick={() => toggleFeature(feature, index)}
+                      className={`w-full text-left px-3 sm:px-4 py-2 sm:py-3 rounded-lg border transition-all duration-300 text-sm sm:text-base ${
+                        selectedFeatures.includes(`card-${index}-${feature}`)
+                          ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-500 shadow-md transform scale-105'
+                          : 'bg-white/80 text-gray-700 border-gray-300 hover:border-green-400 hover:bg-green-50 hover:shadow-sm'
+                      }`}
+                      disabled={false}
                     >
-                      <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex-shrink-0"></div>
-                      <span>{feature}</span>
-                    </li>
+                      <span className="flex items-center justify-between">
+                        <span>{feature}</span>
+                        {selectedFeatures.includes(`card-${index}-${feature}`) && (
+                          <span className="text-white font-bold">✓</span>
+                        )}
+                      </span>
+                    </button>
                   ))}
-                </ul>
+                </div>
 
                 {/* CTA Button */}
-                <button className="mt-4 sm:mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-black py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
+                <button 
+                  onClick={() => handleLearnMore(index)}
+                  className="mt-4 sm:mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-black py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base"
+                >
                   {t.parentTraining?.cta?.learnMore || 'Learn More'}
                 </button>
               </div>
@@ -163,18 +268,7 @@ export function ParentTrainingSection() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-8 sm:mt-16">
-          <div className="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-black">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">{t.parentTraining?.cta?.ready || 'Ready for positive changes?'}</h3>
-            <p className="text-lg sm:text-xl mb-4 sm:mb-6 text-green-100">
-              {t.parentTraining?.cta?.subtitle || 'Start today with our parent training program'}
-            </p>
-            <button className="bg-white text-green-700 px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
-              {t.parentTraining?.cta?.enroll || 'Enroll Now'}
-            </button>
-          </div>
-        </div>
+      
       </div>
     </section>
   );
