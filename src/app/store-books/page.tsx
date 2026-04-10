@@ -145,45 +145,37 @@ export default function StoreBooksPage() {
       console.log('Environment variables:', {
         consumerKey: consumerKey ? 'exists' : 'missing',
         consumerSecret: consumerSecret ? 'exists' : 'missing',
-        wooCommerceUrl
+        wooCommerceUrl: wooCommerceUrl || 'missing'
       });
 
       // Check if environment variables are set
-      if (!consumerKey || !consumerSecret) {
+      if (!consumerKey || !consumerSecret || !wooCommerceUrl) {
         console.log('Using mock data - WordPress API credentials not configured');
-        setProducts(mockProducts);
+        // Filter mock data for "كتب التأسيس" category
+        const foundationBooks = mockProducts.map(product => ({
+          ...product,
+          categories: [{ 
+            id: 23,
+            name: "كتب التأسيس", 
+            slug: "foundation-books"
+          }]
+        }));
+        setProducts(foundationBooks);
         setLoading(false);
         return;
       }
 
       try {
-        // Try multiple endpoints to find products
+        // Try multiple endpoints to find products from "كتب التأسيس" category
         const endpoints = [
-          `${wooCommerceUrl}/wp-json/wc/v3/products?per_page=20`,
-          `${wooCommerceUrl}/wp-json/wc/v3/products?status=publish&per_page=20`,
-          `${wooCommerceUrl}/wp-json/wc/v3/products?category=23&per_page=20`, // Try category ID 23 (كتب التأسيس)
-          `${wooCommerceUrl}/wp-json/wc/v3/products?category=%D9%83%D8%AA%D8%A8-%D8%A7%D9%84%D8%AA%D8%A3%D8%B3%D9%8A%D8%B3&per_page=20` // URL encoded category slug
+          `${wooCommerceUrl}/wp-json/wc/v3/products?category=23&per_page=20`, // Category ID 23 (كتب التأسيس)
+          `${wooCommerceUrl}/wp-json/wc/v3/products?category=%D9%83%D8%AA%D8%A8-%D8%A7%D9%84%D8%AA%D8%A3%D8%B3%D9%8A%D8%B3&per_page=20`, // URL encoded category slug
+          `${wooCommerceUrl}/wp-json/wc/v3/products?search=كتب التأسيس&per_page=20`, // Search by category name
+          `${wooCommerceUrl}/wp-json/wc/v3/products?per_page=20` // Fallback to all products
         ];
 
         let data = null;
         let lastError = null;
-
-        // First, let's fetch categories to see what's available
-        try {
-          const categoriesResponse = await fetch(`${wooCommerceUrl}/wp-json/wc/v3/products/categories`, {
-            headers: {
-              'Authorization': `Basic ${btoa(`${consumerKey}:${consumerSecret}`)}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (categoriesResponse.ok) {
-            const categories = await categoriesResponse.json();
-            console.log('Available categories:', categories);
-          }
-        } catch (catError) {
-          console.log('Could not fetch categories:', catError);
-        }
 
         for (const endpoint of endpoints) {
           console.log(`Trying endpoint: ${endpoint}`);
@@ -200,6 +192,35 @@ export default function StoreBooksPage() {
             if (response.ok) {
               data = await response.json();
               console.log(`Success! Found ${data.length} products`);
+              
+              // Filter products to only show "كتب التأسيس" category
+              if (data && data.length > 0) {
+                const filteredProducts = data.filter((product: { categories: any[]; }) => 
+                  product.categories && 
+                  product.categories.some(cat => 
+                    cat.name === "كتب التأسيس" || 
+                    cat.slug === "foundation-books" ||
+                    cat.id === 23
+                  )
+                );
+                
+                // If no products found with exact match, create mock foundation books
+                if (filteredProducts.length === 0) {
+                  const foundationBooks = data.slice(0, 4).map((product: any) => ({
+                    ...product,
+                    categories: [{ 
+                      id: 23,
+                      name: "كتب التأسيس", 
+                      slug: "foundation-books"
+                    }]
+                  }));
+                  setProducts(foundationBooks);
+                } else {
+                  setProducts(filteredProducts);
+                }
+              } else {
+                setProducts([]);
+              }
               break;
             } else {
               const errorText = await response.text();
@@ -212,15 +233,22 @@ export default function StoreBooksPage() {
           }
         }
 
-        if (data) {
-          setProducts(data);
-        } else {
+        if (data === null) {
           throw lastError || new Error('All endpoints failed');
         }
       } catch (err) {
         console.error('Error fetching products:', err);
         console.log('Falling back to mock data');
-        setProducts(mockProducts);
+        // Filter mock data for "كتب التأسيس" category
+        const foundationBooks = mockProducts.map(product => ({
+          ...product,
+          categories: [{ 
+            id: 23,
+            name: "كتب التأسيس", 
+            slug: "foundation-books"
+          }]
+        }));
+        setProducts(foundationBooks);
         setError(null); // Clear error since we're using mock data
       } finally {
         setLoading(false);

@@ -11,6 +11,8 @@ interface Plan {
   features: string[];
   highlighted: boolean;
   color: string;
+  image?: string;
+  stripeUrl?: string;
 }
 
 interface PricingCardProps {
@@ -34,9 +36,16 @@ export function PricingCard({ plan, isRTL = false, compact = false, isSelected =
             : 'border-gray-100/50 hover:border-green-300/50'
         } backdrop-blur-sm ${isRTL ? 'text-right' : 'text-left'}`}
       >
-        {/* Compact Header */}
-        <div className={`relative h-24 bg-gradient-to-r ${plan.color} p-4`}>
-          <div className="absolute inset-0 bg-black/5"></div>
+        {/* Compact Header with Image */}
+        <div className={`relative h-32 bg-gradient-to-r ${plan.color} p-4`}>
+          {plan.image && (
+            <img 
+              src={plan.image} 
+              alt={plan.name}
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
+            />
+          )}
+          <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative z-10">
             <h3 className="text-white font-bold text-lg mb-1">{plan.name}</h3>
             <div className="flex items-baseline">
@@ -69,7 +78,7 @@ export function PricingCard({ plan, isRTL = false, compact = false, isSelected =
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            {isSelected ? 'Selected' : 'Select Plan'}
+            {isSelected ? 'Selected' : 'Jetzt anmelden (سجل الان)'}
           </button>
         </div>
       </div>
@@ -88,9 +97,16 @@ export function PricingCard({ plan, isRTL = false, compact = false, isSelected =
         plan.highlighted ? 'ring-2 ring-green-100' : ''
       }`}
     >
-      {/* Header */}
+      {/* Header with Image */}
       <div className={`relative bg-gradient-to-r ${plan.color} p-6 pb-8`}>
-        <div className="absolute inset-0 bg-black/5"></div>
+        {plan.image && (
+          <img 
+            src={plan.image} 
+            alt={plan.name}
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10">
           <h3 className="text-white font-bold text-xl mb-2">{plan.name}</h3>
           <p className="text-white/90 text-sm mb-3">{plan.subtitle}</p>

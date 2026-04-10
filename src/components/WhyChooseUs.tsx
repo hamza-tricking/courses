@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export function WhyChooseUs() {
@@ -169,70 +170,7 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        {/* Stats Section - Enhanced Mobile Design */}
-        <div className={`mb-12 sm:mb-16 ${isRTL ? 'rtl' : ''}`}>
-          {/* Mobile: Compact Horizontal Layout */}
-          <div className="sm:hidden">
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50/30 rounded-2xl p-4 backdrop-blur-sm border border-green-200/50">
-              <div className="grid grid-cols-3 gap-2">
-                <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '900ms' }}>
-                  <div className="bg-white/70 backdrop-blur-sm rounded-xl p-3 border border-green-200/30">
-                    <div className="text-lg font-bold text-green-600 mb-1">
-                      {counters.students}+
-                    </div>
-                    <p className="text-xs text-gray-600 font-medium">{t.about?.students || 'Students'}</p>
-                  </div>
-                </div>
-                <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '1100ms' }}>
-                  <div className="bg-white/70 backdrop-blur-sm rounded-xl p-3 border border-green-200/30">
-                    <div className="text-lg font-bold text-green-600 mb-1">
-                      {counters.experience}+
-                    </div>
-                    <p className="text-xs text-gray-600 font-medium">{t.about?.yearsExperience || 'Years'}</p>
-                  </div>
-                </div>
-                <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '1300ms' }}>
-                  <div className="bg-white/70 backdrop-blur-sm rounded-xl p-3 border border-green-200/30">
-                    <div className="text-lg font-bold text-green-600 mb-1">
-                      {counters.satisfaction}%
-                    </div>
-                    <p className="text-xs text-gray-600 font-medium">{t.about?.successRate || 'Success'}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Tablet and Desktop: Original Layout */}
-          <div className="hidden sm:block">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-              <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '900ms' }}>
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50/30 rounded-2xl p-6 backdrop-blur-sm border border-green-200/50">
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-2">
-                    {counters.students}+
-                  </div>
-                  <p className="text-sm sm:text-base text-gray-600">{t.about?.students || 'Students'}</p>
-                </div>
-              </div>
-              <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '1100ms' }}>
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50/30 rounded-2xl p-6 backdrop-blur-sm border border-green-200/50">
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-2">
-                    {counters.experience}+
-                  </div>
-                  <p className="text-sm sm:text-base text-gray-600">{t.about?.yearsExperience || 'Years Experience'}</p>
-                </div>
-              </div>
-              <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '1300ms' }}>
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50/30 rounded-2xl p-6 backdrop-blur-sm border border-green-200/50">
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-600 mb-2">
-                    {counters.satisfaction}%
-                  </div>
-                  <p className="text-sm sm:text-base text-gray-600">{t.about?.successRate || 'Success Rate'}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+   
 
         {/* Lisan Academy Story - Enhanced Mobile Design */}
         <div className={`bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl border border-gray-100 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '1500ms' }}>
@@ -247,9 +185,9 @@ export function WhyChooseUs() {
               <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 text-gray-700">
                 {t.home.whyChooseUs.storyText2}
               </p>
-              <button className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base hover:scale-105 active:scale-95">
+              <Link href={'/about'} className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base hover:scale-105 active:scale-95">
                 {t.home.whyChooseUs.readMore}
-              </button>
+              </Link>
             </div>
             
             <div className="relative order-1 md:order-2">

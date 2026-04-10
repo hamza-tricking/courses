@@ -16,7 +16,7 @@ export function WhatsAppButton() {
 
   const handleWhatsAppClick = () => {
     // WhatsApp number (replace with actual number)
-    const phoneNumber = '491234567890'; // German format
+    const phoneNumber = '4915208532660'; // German format
     const message = encodeURIComponent('Hello! I\'m interested in your language courses.');
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');

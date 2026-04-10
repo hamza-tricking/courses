@@ -36,8 +36,113 @@ export default function ProductDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const productId = params.id as string;
+
+  // Mock data for demonstration
+  const mockProducts: { [key: string]: WordPressProduct } = {
+    '1': {
+      id: 1,
+      name: "Advanced Arabic Grammar",
+      price: "29.99",
+      description: "Comprehensive guide to Arabic grammar for advanced learners. This book covers all essential grammar concepts with detailed explanations and practical examples.",
+      short_description: "Learn advanced Arabic grammar concepts",
+      images: [{ 
+        id: 1,
+        src: "/books/تصميم غلاف كتاب رحلة في بلاد الغرب - arabic book cover.jpg", 
+        alt: "Arabic Grammar Book",
+        name: "Arabic Grammar Book"
+      }],
+      categories: [{ 
+        id: 1,
+        name: "Language", 
+        slug: "language"
+      }, { 
+        id: 2,
+        name: "Education", 
+        slug: "education"
+      }],
+      permalink: "/advanced-arabic-grammar",
+      status: "publish",
+      price_html: "<span class='price'>29.99€</span>"
+    },
+    '2': {
+      id: 2,
+      name: "Mathematics for Beginners",
+      price: "24.99",
+      description: "Step-by-step introduction to fundamental mathematical concepts. Perfect for students starting their mathematical journey.",
+      short_description: "Basic mathematics for beginners",
+      images: [{ 
+        id: 2,
+        src: "/books/Book Cover Design - كتب in 2022 _ Ebook cover design, Book cover design, Book cover artwork.jpg", 
+        alt: "Mathematics Book",
+        name: "Mathematics Book"
+      }],
+      categories: [{ 
+        id: 3,
+        name: "Mathematics", 
+        slug: "mathematics"
+      }, { 
+        id: 4,
+        name: "Education", 
+        slug: "education"
+      }],
+      permalink: "/mathematics-for-beginners",
+      status: "publish",
+      price_html: "<span class='price'>24.99€</span>"
+    },
+    '3': {
+      id: 3,
+      name: "Science Explorations",
+      price: "34.99",
+      description: "Interactive science experiments and explanations for young learners. Discover the wonders of science through hands-on activities.",
+      short_description: "Science experiments for kids",
+      images: [{ 
+        id: 3,
+        src: "/books/Design a professional and beautiful book cover _ Book cover contest.jpg", 
+        alt: "Science Book",
+        name: "Science Book"
+      }],
+      categories: [{ 
+        id: 5,
+        name: "Science", 
+        slug: "science"
+      }, { 
+        id: 6,
+        name: "Education", 
+        slug: "education"
+      }],
+      permalink: "/science-explorations",
+      status: "publish",
+      price_html: "<span class='price'>34.99€</span>"
+    },
+    '4': {
+      id: 4,
+      name: "History of Civilizations",
+      price: "39.99",
+      description: "Journey through the great civilizations of human history. Explore ancient cultures and their contributions to modern society.",
+      short_description: "History of world civilizations",
+      images: [{ 
+        id: 4,
+        src: "/books/Design the cover of my new book on bankruptcy! _ Book cover contest.jpg", 
+        alt: "History Book",
+        name: "History Book"
+      }],
+      categories: [{ 
+        id: 7,
+        name: "History", 
+        slug: "history"
+      }, { 
+        id: 8,
+        name: "Education", 
+        slug: "education"
+      }],
+      permalink: "/history-of-civilizations",
+      status: "publish",
+      price_html: "<span class='price'>39.99€</span>"
+    }
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -45,8 +150,23 @@ export default function ProductDetailPage() {
       const consumerSecret = process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET;
       const wooCommerceUrl = process.env.NEXT_PUBLIC_WC_API_URL;
 
+      console.log('Product detail - Environment variables:', {
+        consumerKey: consumerKey ? 'exists' : 'missing',
+        consumerSecret: consumerSecret ? 'exists' : 'missing',
+        wooCommerceUrl: wooCommerceUrl || 'missing',
+        productId: productId
+      });
+
+      // Check if environment variables are set
       if (!consumerKey || !consumerSecret || !wooCommerceUrl) {
-        setError('WordPress API credentials not configured');
+        console.log('Using mock data for product detail - WordPress API credentials not configured');
+        const mockProduct = mockProducts[productId];
+        if (mockProduct) {
+          setProduct(mockProduct);
+          setError(null);
+        } else {
+          setError('Product not found');
+        }
         setLoading(false);
         return;
       }
@@ -62,15 +182,27 @@ export default function ProductDetailPage() {
           }
         );
 
+        console.log(`Product detail response status: ${response.status}`);
+
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          const errorText = await response.text();
+          console.log(`Product detail error response: ${errorText}`);
+          throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
         }
 
         const productData = await response.json();
+        console.log('Product detail loaded successfully:', productData.name);
         setProduct(productData);
       } catch (err) {
         console.error('Error fetching product:', err);
-        setError('Failed to load product');
+        console.log('Falling back to mock data for product detail');
+        const mockProduct = mockProducts[productId];
+        if (mockProduct) {
+          setProduct(mockProduct);
+          setError(null);
+        } else {
+          setError('Product not found');
+        }
       } finally {
         setLoading(false);
       }
@@ -81,10 +213,49 @@ export default function ProductDetailPage() {
     }
   }, [productId]);
 
-  const handleAddToCart = () => {
-    // Add to cart logic here
-    console.log(`Adding ${quantity} of ${product?.name} to cart`);
-    // You can integrate with your cart system here
+  const handleAddToCart = async () => {
+    if (!product) {
+      console.error('Product not loaded');
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              description: product.short_description,
+              images: product.images,
+              quantity: quantity,
+            },
+          ],
+        }),
+      });
+
+      const { url, error: checkoutError } = await response.json();
+
+      if (checkoutError) {
+        throw new Error(checkoutError);
+      }
+
+      // Direct redirect to Stripe checkout URL
+      window.location.href = url;
+    } catch (err) {
+      console.error('Checkout error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Payment failed. Please try again.';
+      alert(`Payment failed: ${errorMessage}`);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (loading) {
@@ -275,20 +446,21 @@ export default function ProductDetailPage() {
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-lg mb-4"
+                disabled={isProcessing}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-lg mb-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
-                Add to Cart
+                {isProcessing ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    {t.store.products.processing}
+                  </span>
+                ) : (
+                  t.store.products.buyNow
+                )}
               </button>
-
-              {/* External Link */}
-              <a
-                href={product.permalink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center text-green-600 hover:text-green-700 py-3 rounded-lg border border-green-600 hover:bg-green-50 transition-colors font-semibold"
-              >
-                View on Original Site
-              </a>
             </div>
 
            

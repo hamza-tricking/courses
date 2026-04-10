@@ -259,7 +259,7 @@ export function ParentTrainingSection() {
                 {/* CTA Button */}
                 <button 
                   onClick={() => handleLearnMore(index)}
-                  className="mt-4 sm:mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-black py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base"
+                  className="mt-4 cursor-pointer sm:mt-6 w-full bg-gradient-to-r from-green-500 to-emerald-600 text-black py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base"
                 >
                   {t.parentTraining?.cta?.learnMore || 'Learn More'}
                 </button>

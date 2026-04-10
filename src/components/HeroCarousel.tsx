@@ -3,26 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export function HeroCarousel() {
   const { t } = useLanguage();
   const pathname = usePathname();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animateContent, setAnimateContent] = useState(false);
-  const images = [
+  const images = ['/heropart/WhatsApp Image 2026-02-11 at 1.06.16 PM.jpeg',
     '/heropart/hero0.jpg',
     '/heropart/hero1.jpg',
-    '/heropart/hero2.jpg',
-    '/heropart/hero4.png'
+    
   ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 4000); // Change slide every 4 seconds
-
-    return () => clearInterval(timer);
-  }, [images.length]);
 
   useEffect(() => {
     // Only trigger content animation on home page
@@ -67,21 +59,46 @@ export function HeroCarousel() {
       {/* Content Overlay */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center text-white px-4">
-          <h1 className={`text-[1.8rem] w-full md:text-6xl font-bold mb-4 transition-all duration-1000 ${
+          
+          
+          {/* Slogan Section */}
+          <div className={`mt-6 mb-6 transition-all duration-1000 delay-500 ${
             animateContent ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           }`}>
-            {t.home.hero.title}
-          </h1>
-          <p className={`text-lg md:text-xl max-w-2xl mx-auto transition-all duration-1000 delay-300 ${
+            <div className="flex flex-col md:flex-row md:items-center md:justify-center md:space-x-4 space-y-2 md:space-y-0">
+              <p className="text-2xl md:text-5xl font-bold">
+                {t.home.hero.slogan?.line1}
+              </p>
+              <p className="text-2xl md:text-5xl font-bold">
+                {t.home.hero.slogan?.line2}
+              </p>
+              <p className="text-2xl md:text-5xl font-bold">
+                {t.home.hero.slogan?.line3}
+              </p>
+            </div>
+          </div>
+
+          {/* Trial Button */}
+          <div className={`transition-all duration-1000 delay-700 ${
             animateContent ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           }`}>
-            {t.home.hero.subtitle}
-          </p>
+         
+          </div>
         </div>
       </div>
 
+      {/* Trial Button - Moved to better position */}
+      <div className="absolute bottom-44 left-1/2 transform -translate-x-1/2 z-[100]">
+        <Link 
+          href="/blog"
+          className="inline-block bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 active:scale-95 relative pointer-events-auto"
+        >
+          {t.home.hero.slogan?.trialButton}
+        </Link>
+      </div>
+
       {/* Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4 z-50">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex items-center space-x-4 z-40">
         <span className="text-white text-sm font-medium">
           {currentSlide + 1}/{images.length}
         </span>
@@ -90,7 +107,7 @@ export function HeroCarousel() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 ease-in-out cursor-pointer z-50 ${
+              className={`transition-all duration-300 ease-in-out cursor-pointer z-40 ${
                 index === currentSlide
                   ? 'w-8 h-2 bg-white'
                   : 'w-2 h-2 bg-white/50 hover:bg-white/75'
@@ -104,7 +121,7 @@ export function HeroCarousel() {
       {/* Navigation Arrows */}
       <button
         onClick={() => goToSlide((currentSlide - 1 + images.length) % images.length)}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-50 cursor-pointer"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-40 cursor-pointer"
         aria-label="Previous slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +130,7 @@ export function HeroCarousel() {
       </button>
       <button
         onClick={() => goToSlide((currentSlide + 1) % images.length)}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-50 cursor-pointer"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-40 cursor-pointer"
         aria-label="Next slide"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -59,7 +59,7 @@ export function Footer() {
                   </p>
                   <div className="flex items-center space-x-2 text-green-200/60 text-xs">
                     <MapPin className="w-3 h-3" />
-                    <span>Berlin, Germany</span>
+                    <span>Ebersbach an der Fils, Germany</span>
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ export function Footer() {
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-500">
                   <h3 className="text-lg sm:text-xl font-bold mb-4 bg-gradient-to-r from-emerald-200 to-teal-200 bg-clip-text text-transparent">
-                    Quick Links
+                    {t.footer.quickLinks}
                   </h3>
                   <ul className="space-y-3">
                     <li>
@@ -109,7 +109,7 @@ export function Footer() {
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-cyan-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-500">
                   <h3 className="text-lg sm:text-xl font-bold mb-4 bg-gradient-to-r from-teal-200 to-cyan-200 bg-clip-text text-transparent">
-                    Contact
+                    {t.footer.contact}
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3 text-green-100/80 hover:text-teal-200 transition-colors duration-300">
@@ -118,7 +118,7 @@ export function Footer() {
                     </div>
                     <div className="flex items-center space-x-3 text-green-100/80 hover:text-teal-200 transition-colors duration-300">
                       <Phone className="w-4 h-4" />
-                      <span className="text-sm">004915208532660</span>
+                      <span className="text-sm">+49 1520 8532660</span>
                     </div>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export function Footer() {
                       </div>
                     </a>
                     <a 
-                      href="https://www.facebook.com/lisanakademie" 
+                      href="https://www.facebook.com/profile.php?id=61586624315937&locale=ar_AR" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="group/social relative"
@@ -156,17 +156,7 @@ export function Footer() {
                         <Facebook className="w-4 h-4 text-white" />
                       </div>
                     </a>
-                    <a 
-                      href="https://www.tiktok.com/@lisanakademie" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="group/social relative"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-black to-gray-800 rounded-xl opacity-0 group-hover/social:opacity-100 transition-opacity duration-300 blur-sm"></div>
-                      <div className="relative bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 hover:border-white/40 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1">
-                        <Music className="w-4 h-4 text-white" />
-                      </div>
-                    </a>
+                   
                   </div>
                   <p className="text-green-100/60 text-xs leading-relaxed">
                     {t.footer.socialMediaText}
@@ -177,21 +167,29 @@ export function Footer() {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-white/10 mt-8 sm:mt-12 pt-6 sm:pt-8">
+          <div className="border-t p-12 border-white/10 mt-8 sm:mt-12 pt-6 sm:pt-8">
             <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
               <p className="text-green-200/60 text-sm">
-                © 2025 Lisanakademie. {t.footer.rights}
+                © 2026 Lisanakademie. {t.footer.rights}
               </p>
               <div className="flex items-center space-x-6">
-                <Link href="/privacy" className="text-green-200/60 hover:text-green-200 text-sm transition-colors duration-300">
-                  {t.footer.privacy}
+                <Link href="/privacy-wordpress" className="text-green-200/60 hover:text-green-200 text-sm transition-colors duration-300 hover:underline">
+                  Wiederrufsbelehrung
+                </Link>
+                <Link href="/agb" className="text-green-200/60 hover:text-green-200 text-sm transition-colors duration-300 hover:underline">
+                  AGB
+                </Link>
+                <Link href="/impressum" className="text-green-200/60 hover:text-green-200 text-sm transition-colors duration-300 hover:underline">
+                  Impressum
+                </Link>
+                <Link href="/datenschutzerklarung" className="text-green-200/60 hover:text-green-200 text-sm transition-colors duration-300 hover:underline">
+                  Datenschutzerklärung
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </footer>
-
       {/* Scroll to Top Button */}
       {showScrollTop && (
         <button

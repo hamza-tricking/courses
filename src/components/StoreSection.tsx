@@ -11,10 +11,10 @@ export function StoreSection() {
 
   const storeItems = t.store?.products 
     ? Object.entries(t.store.products)
-        .filter(([id, product]) => product.featured)
+        .filter(([id, product]) => typeof product === 'object' && product.featured)
         .map(([id, product]) => ({
           id: parseInt(id),
-          ...product
+          ...(product as any)
         }))
     : [];
 
@@ -112,13 +112,18 @@ export function StoreSection() {
                         {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                       </span>
                     </div>
-                    <Link 
-                      href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
-                            item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                    <button 
+                      onClick={() => {
+                        const href = item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                                     item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#";
+                        if (href !== "#") {
+                          window.location.href = href;
+                        }
+                      }}
                       className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
                     >
                       {t.store.viewDetails}
-                    </Link>
+                    </button>
                   </div>
                 </Link>
               ))}
@@ -155,13 +160,18 @@ export function StoreSection() {
                         {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                       </span>
                     </div>
-                    <Link 
-                      href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
-                            item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                    <button 
+                      onClick={() => {
+                        const href = item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                                     item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#";
+                        if (href !== "#") {
+                          window.location.href = href;
+                        }
+                      }}
                       className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
                     >
                       {t.store.viewDetails}
-                    </Link>
+                    </button>
                   </div>
                 </Link>
               ))}
@@ -198,13 +208,18 @@ export function StoreSection() {
                       {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                     </span>
                   </div>
-                  <Link 
-                    href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
-                          item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                  <button 
+                    onClick={() => {
+                      const href = item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                                   item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#";
+                      if (href !== "#") {
+                        window.location.href = href;
+                      }
+                    }}
                     className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-2 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
                   >
                     {t.store.viewDetails}
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -237,13 +252,18 @@ export function StoreSection() {
                       {item.type === 'learningSet' ? t.store.learningSet : t.store.digitalResource}
                     </span>
                   </div>
-                  <Link 
-                    href={item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
-                          item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#"}
+                  <button 
+                    onClick={() => {
+                      const href = item.title === "حقيبة التعلم المتكاملة" || item.title === "Komplettes Lernset" || item.title === "Complete Learning Set" ? "/store-books" : 
+                                   item.title === "ملفات فيديو تعليمية" || item.title === "Lehrvideos" || item.title === "Educational Videos" ? "/store-videos" : "#";
+                      if (href !== "#") {
+                        window.location.href = href;
+                      }
+                    }}
                     className="block w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
                   >
                     {t.store.viewDetails}
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}

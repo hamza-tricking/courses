@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PricingCard } from './PricingCard';
+import Link from 'next/link';
 
 export function OnlineLessonsSection() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, language } = useLanguage();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [showReservationModal, setShowReservationModal] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -51,46 +52,57 @@ export function OnlineLessonsSection() {
 
   const plans = [
     {
-      id: 'basic',
-      name: t.onlineLessons.plans.basic.name,
-      subtitle: t.onlineLessons.plans.basic.subtitle,
-      price: '29,95 €',
-      period: t.onlineLessons.plans.basic.period,
+      id: 'start',
+      name: language === 'ar' ? '🟢 باقة الانطلاق' : language === 'de' ? '🇩🇪 Start-Paket' : '🟢 Start Package',
+      subtitle: language === 'ar' ? 'لبناء أساس لغوي متين' : language === 'de' ? 'Für einen soliden Einstieg' : 'For Building Solid Language Foundation',
+      price: language === 'ar' ? '49,95 €' : language === 'de' ? '49,95 €' : '49,95 €',
+      period: language === 'ar' ? 'حصتان أونلاين مباشر أسبوعيًا' : language === 'de' ? '2 Live-Online-Unterrichtseinheiten pro Woche' : '2 live online sessions weekly',
+      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png',
+      stripeUrl: 'https://buy.stripe.com/9B68wPgtX0I6c3xfLacEw02',
       features: [
-        t.onlineLessons.plans.basic.features.sessions,
-        t.onlineLessons.plans.basic.features.duration,
-        t.onlineLessons.plans.basic.features.format,
-        t.onlineLessons.plans.basic.features.level
+        language === 'ar' ? 'حصتان أونلاين مباشر أسبوعيًا' : language === 'de' ? '2 Live-Online-Unterrichtseinheiten pro Woche' : '2 live online sessions weekly',
+        language === 'ar' ? 'تعلم تفاعلي لكسر ملل الأونلاين' : language === 'de' ? 'Interaktiver Unterricht' : 'Interactive learning',
+        language === 'ar' ? 'مجموعات صغيرة (حتى 6 طلاب)' : language === 'de' ? 'Kleine Gruppen (max. 6 Teilnehmer)' : 'Small groups (max 6 students)',
+        language === 'ar' ? 'تطبيق ذكي للمراجعة' : language === 'de' ? 'Lern-App zur Wiederholung' : 'Smart app for review',
+        language === 'ar' ? 'تقييم دوري للتقدم' : language === 'de' ? 'Regelmäßige Lernstandskontrolle' : 'Regular progress assessment'
       ],
       highlighted: false,
       color: 'from-green-500 to-emerald-600'
     },
     {
-      id: 'standard',
-      name: t.onlineLessons.plans.standard.name,
-      subtitle: t.onlineLessons.plans.standard.subtitle,
-      price: '59,90 €',
-      period: t.onlineLessons.plans.standard.period,
+      id: 'progress',
+      name: language === 'ar' ? '🟡 باقة التقدّم' : language === 'de' ? '🇩🇪 Progress-Paket' : '🟡 Progress Package',
+      subtitle: language === 'ar' ? 'لتطوير المهارات بشكل أسرع' : language === 'de' ? 'Für schnellen und nachhaltigen Lernfortschritt' : 'For Fast and Sustainable Progress',
+      price: language === 'ar' ? '69,90 €' : language === 'de' ? '69,90 €' : '69,90 €',
+      period: language === 'ar' ? '3 حصص أونلاين أسبوعيًا' : language === 'de' ? '3 Unterrichtseinheiten pro Woche' : '3 online sessions weekly',
+      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png',
+      stripeUrl: 'https://buy.stripe.com/fZu3cvcdHduSebF1UkcEw03',
       features: [
-        t.onlineLessons.plans.standard.features.sessions,
-        t.onlineLessons.plans.standard.features.duration,
-        t.onlineLessons.plans.standard.features.format,
-        t.onlineLessons.plans.standard.features.homework
+        language === 'ar' ? '3 حصص أونلاين أسبوعيًا' : language === 'de' ? '3 Unterrichtseinheiten pro Woche' : '3 online sessions weekly',
+        language === 'ar' ? 'تعلم نشط قائم على الحوار' : language === 'de' ? 'Kommunikativer, aktiver Unterricht' : 'Communication-based active learning',
+        language === 'ar' ? 'مجموعات حتى 6 طلاب' : language === 'de' ? 'Gruppen mit max. 6 Teilnehmern' : 'Groups with max 6 students',
+        language === 'ar' ? 'واجبات موجهة' : language === 'de' ? 'Gezielte Hausaufgaben' : 'Targeted homework',
+        language === 'ar' ? 'تقارير متابعة دورية' : language === 'de' ? 'Regelmäßige Fortschrittsberichte' : 'Regular progress reports',
+        language === 'ar' ? 'الكتب الورقية اختيارية' : language === 'de' ? 'Gedruckte Bücher optional erhältlich' : 'Printed books optionally available'
       ],
       highlighted: true,
       color: 'from-emerald-500 to-teal-600'
     },
     {
-      id: 'premium',
-      name: t.onlineLessons.plans.premium.name,
-      subtitle: t.onlineLessons.plans.premium.subtitle,
-      price: '89,85 €',
-      period: t.onlineLessons.plans.premium.period,
+      id: 'mastery',
+      name: language === 'ar' ? '🔵 باقة الإتقان' : language === 'de' ? '🇩🇪 Mastery-Paket' : '🔵 Mastery Package',
+      subtitle: language === 'ar' ? 'للوصول إلى الطلاقة والاحتراف' : language === 'de' ? 'Für Sprachsicherheit und höchste Lernziele' : 'For Language Proficiency and Highest Goals',
+      price: language === 'ar' ? '89,95 €' : language === 'de' ? '89,95 €' : '89,95 €',
+      period: language === 'ar' ? '4 حصص أونلاين أسبوعيًا' : language === 'de' ? '4 Unterrichtseinheiten pro Woche' : '4 online sessions weekly',
+      image: '/Courses photos/imagess 14.png',
+      stripeUrl: 'https://buy.stripe.com/5kQ3cv91v8ayffJ42scEw04',
       features: [
-        t.onlineLessons.plans.premium.features.sessions,
-        t.onlineLessons.plans.premium.features.duration,
-        t.onlineLessons.plans.premium.features.format,
-        t.onlineLessons.plans.premium.features.vip
+        language === 'ar' ? '4 حصص أونلاين أسبوعيًا' : language === 'de' ? '4 Unterrichtseinheiten pro Woche' : '4 online sessions weekly',
+        language === 'ar' ? 'مجموعات مصغّرة (حتى 3 طلاب فقط)' : language === 'de' ? 'Sehr kleine Gruppen (max. 3 Teilnehmer)' : 'Very small groups (max 3 students only)',
+        language === 'ar' ? 'Coaching فردي لكل طالب' : language === 'de' ? 'Individuelles Coaching pro Schüler' : 'Individual coaching for each student',
+        language === 'ar' ? 'تشخيص ومتابعة شخصية مستمرة' : language === 'de' ? 'Persönliche Lernstandsanalyse' : 'Personal learning progress analysis',
+        language === 'ar' ? 'خطة تطوير لغوية خاصة' : language === 'de' ? 'Individueller Lernentwicklungsplan' : 'Individual language development plan',
+        language === 'ar' ? 'الكتب الورقية متوفرة اختياريًا' : language === 'de' ? 'Gedruckte Bücher optional erhältlich' : 'Printed books optionally available'
       ],
       highlighted: false,
       color: 'from-teal-500 to-green-600'
@@ -201,9 +213,9 @@ export function OnlineLessonsSection() {
                 <p className="text-sm text-gray-600 mb-4">
                   {t.onlineLessons.selectedPlan.nextStepsText}
                 </p>
-                <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-sm">
+                <Link href={'/reservation'} className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 text-sm">
                   {t.onlineLessons.selectedPlan.enrollNow}
-                </button>
+                </Link>
               </div>
             </div>
           </div>

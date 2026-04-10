@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
+import emailjs from '@emailjs/browser';
 
 // Fix Leaflet default icon issues
 delete (Icon.Default.prototype as any)._getIconUrl;
@@ -149,8 +150,9 @@ async function geocodeAddress(address: string): Promise<Location | null> {
 }
 
 export default function HomeVisitReservationPage() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, language } = useLanguage();
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -161,6 +163,7 @@ export default function HomeVisitReservationPage() {
     notes: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [clientLocation, setClientLocation] = useState<Location | null>(null);
   const [distance, setDistance] = useState<number>(0);
   const [isGeocoding, setIsGeocoding] = useState(false);
@@ -205,10 +208,14 @@ export default function HomeVisitReservationPage() {
   };
 
   const handleAddressGeocode = async () => {
-    if (!formData.address.trim()) return;
+    // Get address from form instead of formData
+    const addressInput = formRef.current?.querySelector('input[name="address"]') as HTMLInputElement;
+    const address = addressInput?.value?.trim();
+    
+    if (!address) return;
     
     setIsGeocoding(true);
-    const location = await geocodeAddress(formData.address);
+    const location = await geocodeAddress(address);
     
     if (location) {
       setClientLocation(location);
@@ -218,6 +225,10 @@ export default function HomeVisitReservationPage() {
     }
     
     setIsGeocoding(false);
+  };
+
+  const closeModal = (): void => {
+    setShowModal(false);
   };
 
   const handleMapClick = async (lat: number, lng: number) => {
@@ -290,13 +301,75 @@ export default function HomeVisitReservationPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Here you would typically send the data to your backend
-    // For now, we'll just simulate a submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Redirect to success page or show success message
-    alert(t.homeVisitReservation?.successMessage || 'Reservation submitted successfully!');
-    setIsSubmitting(false);
+    try {
+      // Get all form data from DOM
+      const form = formRef.current;
+      if (!form) return;
+      
+      const formData = new FormData(form);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const phone = formData.get('phone') as string;
+      const address = formData.get('address') as string;
+      const preferredDate = formData.get('preferredDate') as string;
+      const preferredTime = formData.get('preferredTime') as string;
+      const notes = formData.get('notes') as string;
+      
+      // Create a single message string with all information
+      const messageContent = `
+Home Visit Reservation Details:
+
+Personal Information:
+- Name: ${name}
+- Email: ${email}
+- Phone: ${phone}
+
+Scheduling:
+- Preferred Date: ${preferredDate}
+- Preferred Time: ${preferredTime}
+
+Location:
+- Address: ${address}
+
+Additional Notes:
+${notes || 'None'}
+
+Total Price: €${calculatedPrice.total.toFixed(2)} (Session: €15.00 + Travel: €${calculatedPrice.travelCost.toFixed(2)})
+      `.trim();
+
+      // Send formatted message using emailjs.send instead of sendForm
+      await emailjs.send(
+        "service_8wtdizb",      // Service ID
+        "template_ulrw044",     // Template ID
+        {
+          to_email: "laaakademie@gmail.com",
+          subject: `Home Visit Reservation from ${name}`,
+          message: messageContent,
+          reply_to: email
+        },
+        "N6FeQ45lY6cUjYR94"    // Public Key
+      );
+
+      // Show success modal
+      setShowModal(true);
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        address: '',
+        preferredDate: '',
+        preferredTime: '',
+        notes: ''
+      });
+      
+    } catch (error) {
+      console.error("Failed to send reservation:", error);
+      alert('Failed to send reservation. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const timeSlots = [
@@ -319,7 +392,7 @@ export default function HomeVisitReservationPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Reservation Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+            <form ref={formRef} onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Personal Information */}
                 <div>
@@ -335,8 +408,6 @@ export default function HomeVisitReservationPage() {
                       <input
                         type="text"
                         name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
@@ -349,8 +420,6 @@ export default function HomeVisitReservationPage() {
                       <input
                         type="email"
                         name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
@@ -363,8 +432,6 @@ export default function HomeVisitReservationPage() {
                       <input
                         type="tel"
                         name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
@@ -388,8 +455,6 @@ export default function HomeVisitReservationPage() {
                       <input
                         type="date"
                         name="preferredDate"
-                        value={formData.preferredDate}
-                        onChange={handleInputChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
@@ -402,8 +467,6 @@ export default function HomeVisitReservationPage() {
                       </label>
                       <select
                         name="preferredTime"
-                        value={formData.preferredTime}
-                        onChange={handleInputChange}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       >
@@ -423,8 +486,6 @@ export default function HomeVisitReservationPage() {
                     </label>
                     <textarea
                       name="notes"
-                      value={formData.notes}
-                      onChange={handleInputChange}
                       rows={4}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder={t.homeVisitReservation?.notesPlaceholder || 'Any special requirements or questions...'}
@@ -472,8 +533,6 @@ export default function HomeVisitReservationPage() {
                         <input
                           type="text"
                           name="address"
-                          value={formData.address}
-                          onChange={handleInputChange}
                           required
                           placeholder="Enter your address or click on map"
                           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
@@ -481,7 +540,7 @@ export default function HomeVisitReservationPage() {
                         <button
                           type="button"
                           onClick={handleAddressGeocode}
-                          disabled={isGeocoding || !formData.address.trim()}
+                          disabled={isGeocoding}
                           className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                           {isGeocoding ? 'Finding...' : 'Find'}
@@ -620,6 +679,37 @@ export default function HomeVisitReservationPage() {
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform transition-all duration-300 scale-100">
+            <div className="text-center">
+              {/* Success Icon */}
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === 'de' ? 'Vielen Dank!' : language === 'ar' ? 'شكراً جزيلاً!' : 'Thank You!'}
+              </h3>
+              
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                {language === 'de' ? 'Ihre Reservierung wurde erfolgreich gesendet! Wir werden uns bald mit Ihnen in Verbindung setzen, um Ihre Buchung zu bestätigen.' : language === 'ar' ? 'تم إرسال حجزك بنجاح! سنتواصل معك قريباً لتأكيد الحجز.' : 'Reservation submitted successfully! We will contact you soon to confirm your booking.'}
+              </p>
+              
+              <button
+                onClick={closeModal}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+              >
+                {language === 'de' ? 'Schließen' : language === 'ar' ? 'إغلاق' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

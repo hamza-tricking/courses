@@ -1,102 +1,110 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import emailjs from '@emailjs/browser';
 
 export function BlogSection() {
-  const { t, isRTL } = useLanguage();
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const { t, isRTL, language } = useLanguage();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    studentAge: '',
+    preferredTime: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'Effektive Lernmethoden für Kinder',
-      excerpt: 'Entdecken Sie bewährte Techniken, die Kindern helfen, besser zu lernen und Wissen zu behalten.',
-      category: 'learning',
-      author: 'Dr. Sarah Müller',
-      date: '15. Januar 2024',
-      readTime: '5',
-      image: '/blog/Unlocking Student Success Through Formal Education.jpg',
-      featured: true,
-      tags: ['Lernen', 'Kinder', 'Bildung']
-    },
-    {
-      id: 2,
-      title: 'Die Bedeutung von Sprachförderung',
-      excerpt: 'Warum frühe Sprachförderung entscheidend für die Entwicklung Ihres Kindes ist.',
-      category: 'language',
-      author: 'Prof. Ahmed Hassan',
-      date: '12. Januar 2024',
-      readTime: '7',
-      image: '/blog/download (73).jpg',
-      featured: true,
-      tags: ['Sprache', 'Entwicklung', 'Frühe Förderung']
-    },
-    {
-      id: 3,
-      title: 'Work-Life-Balance für Eltern',
-      excerpt: 'Praktische Tipps für eine bessere Balance zwischen Beruf und Familienleben.',
-      category: 'family',
-      author: 'Maria Schmidt',
-      date: '10. Januar 2024',
-      readTime: '6',
-      image: '/blog/download (74).jpg',
-      featured: false,
-      tags: ['Familie', 'Balance', 'Elternsein']
-    },
-    {
-      id: 4,
-      title: 'Digitale Medien in der Erziehung',
-      excerpt: 'Wie Sie den Umgang mit digitalen Medien für Ihre Kinder sinnvoll gestalten.',
-      category: 'technology',
-      author: 'Thomas Weber',
-      date: '8. Januar 2024',
-      readTime: '8',
-      image: '/blog/download (75).jpg',
-      featured: false,
-      tags: ['Technologie', 'Medien', 'Erziehung']
-    },
-    {
-      id: 5,
-      title: 'Emotionale Intelligenz fördern',
-      excerpt: 'Strategien zur Entwicklung emotionaler Kompetenzen bei Kindern.',
-      category: 'psychology',
-      author: 'Dr. Lisa Chen',
-      date: '5. Januar 2024',
-      readTime: '6',
-      image: '/blog/Unlocking Student Success Through Formal Education.jpg',
-      featured: false,
-      tags: ['Emotionen', 'Psychologie', 'Kinder']
-    },
-    {
-      id: 6,
-      title: 'Bilinguale Erziehung: Vorteile und Herausforderungen',
-      excerpt: 'Was Sie über die Erziehung von zweisprachigen Kindern wissen sollten.',
-      category: 'language',
-      author: 'Dr. Carlos Rodriguez',
-      date: '3. Januar 2024',
-      readTime: '9',
-      image: '/blog/download (73).jpg',
-      featured: false,
-      tags: ['Bilingual', 'Sprache', 'Erziehung']
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Get all form data from DOM
+      const form = formRef.current;
+      if (!form) return;
+      
+      const formData = new FormData(form);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const phone = formData.get('phone') as string;
+      const studentAge = formData.get('studentAge') as string;
+      const preferredTime = formData.get('preferredTime') as string;
+      
+      // Create a single message string with all information
+      const messageContent = `
+Trial Class Booking Details:
+
+Personal Information:
+- Name: ${name}
+- Email: ${email}
+- Phone: ${phone}
+- Student Age: ${studentAge}
+
+Preferred Time: ${preferredTime}
+
+---
+الاسم: ${name}
+البريد الإلكتروني: ${email}
+الهاتف: ${phone}
+عمر الطالب: ${studentAge}
+الوقت المفضل: ${preferredTime}
+      `.trim();
+
+      // Send formatted message using emailjs.send
+      await emailjs.send(
+        "service_8wtdizb",      // Service ID
+        "template_ulrw044",     // Template ID
+        {
+          to_email: "laaakademie@gmail.com",
+          subject: `Trial Class Booking from ${name}`,
+          message: messageContent,
+          reply_to: email
+        },
+        "N6FeQ45lY6cUjYR94"    // Public Key
+      );
+
+      // Show success modal
+      setShowModal(true);
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        studentAge: '',
+        preferredTime: ''
+      });
+      
+    } catch (error) {
+      console.error("Failed to send trial class booking:", error);
+      alert('Failed to send trial class booking. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-  ];
+  };
 
-  const categories = [
-    { id: 'all', label: t.blog.categories.all, count: blogPosts.length },
-    { id: 'learning', label: t.blog.categories.learning, count: 1 },
-    { id: 'language', label: t.blog.categories.language, count: 2 },
-    { id: 'family', label: t.blog.categories.family, count: 1 },
-    { id: 'technology', label: t.blog.categories.technology, count: 1 },
-    { id: 'psychology', label: t.blog.categories.psychology, count: 1 }
-  ];
+  const closeModal = (): void => {
+    setShowModal(false);
+  };
 
-  const filteredPosts = selectedCategory === 'all' 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  const featuredPosts = blogPosts.filter(post => post.featured);
-  const regularPosts = filteredPosts.filter(post => !post.featured);
+  const getFlag = () => {
+    switch (language) {
+      case 'ar': return '🇸🇦';
+      case 'de': return '🇩🇪';
+      case 'en': return '🇬🇧';
+      default: return '🇩🇪';
+    }
+  };
 
   return (
     <section className="py-8 sm:py-12 bg-gradient-to-br from-gray-100 via-green-50 to-emerald-100 text-gray-900 relative overflow-hidden">
@@ -110,313 +118,167 @@ export function BlogSection() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className={`text-center mb-6 sm:mb-12 ${isRTL ? 'rtl' : ''}`}>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-700 bg-clip-text text-transparent py-2">
-            {t.blog.title}
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-800 max-w-3xl mx-auto">
-            {t.blog.subtitle}
-          </p>
-        </div>
-
-        {/* Category Filter */}
-        <div className="flex justify-center mb-8 sm:mb-12">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 flex flex-wrap justify-center gap-2 max-w-2xl">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-semibold transition-all duration-300 flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm ${
-                  selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-black shadow-lg transform scale-105'
-                    : 'text-gray-800 hover:text-black hover:bg-green-50'
-                }`}
-              >
-                <span>{category.label}</span>
-                <span className={`text-xs ${
-                  selectedCategory === category.id ? 'text-emerald-100' : 'text-gray-400'
-                }`}>
-                  ({category.count})
-                </span>
-              </button>
-            ))}
+        <div className={`text-center mb-8 sm:mb-12 ${isRTL ? 'rtl' : ''}`}>
+          <div className="flex justify-center items-center gap-4 mb-6">
+            <span className="text-2xl">{getFlag()}</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-700 bg-clip-text text-transparent py-4">
+              {t.trialClass.title}
+            </h2>
           </div>
         </div>
 
-        {/* Featured Posts */}
-        {selectedCategory === 'all' && featuredPosts.length > 0 && (
-          <div className="mb-12 sm:mb-16">
-            <h3 className="text-xl sm:text-2xl font-bold text-black mb-6 sm:mb-8 text-center">{t.blog.featured}</h3>
-            
-            {/* Mobile: Compact Horizontal Scroll */}
-            <div className="sm:hidden mb-8">
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                {featuredPosts.map((post) => (
-                  <div key={post.id} className="flex-none w-80">
-                    <div
-                      className="bg-white/5 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group cursor-pointer border border-white/10 h-full"
-                    >
-                      {/* Image */}
-                      <div className="h-40 bg-gradient-to-r from-emerald-400 to-teal-400 relative overflow-hidden">
-                        <img 
-                          src={post.image} 
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/20"></div>
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-white/90 backdrop-blur-sm text-green-600 px-2 py-1 rounded-full text-xs font-semibold">
-                            {t.blog.featured}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-4">
-                        <div className="flex items-center space-x-2 text-xs text-black mb-2">
-                          <span className="font-medium text-green-400">{t.blog.categories[post.category as keyof typeof t.blog.categories] || post.category}</span>
-                          <span>•</span>
-                          <span>{post.date}</span>
-                          <span>•</span>
-                          <span>{post.readTime} {t.blog.readTime}</span>
-                        </div>
-
-                        <h3 className="text-lg font-bold text-black mb-2 group-hover:text-green-400 transition-colors">
-                          {post.title}
-                        </h3>
-
-                        <p className="text-black mb-3 line-clamp-2 text-sm">
-                          {post.excerpt}
-                        </p>
-
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
-                            <span className="text-xs text-black font-medium">{post.author}</span>
-                          </div>
-
-                          <button className="text-green-400 hover:text-green-100 font-semibold text-xs flex items-center space-x-1 group">
-                            <span>{t.blog.readMore}</span>
-                            <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </div>
-
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-1 mt-3">
-                          {post.tags.map((tag, index) => (
-                            <span
-                              key={index}
-                              className="bg-green-100/20 text-green-400 px-2 py-1 rounded-full text-xs font-medium"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tablet and Desktop: Grid Layout */}
-            <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {featuredPosts.map((post) => (
-                <div
-                  key={post.id}
-                  className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group cursor-pointer border border-green-200/30"
-                >
-                  {/* Image */}
-                  <div className="h-40 sm:h-48 bg-gradient-to-r from-emerald-400 to-teal-400 relative overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                      <span className="bg-white/90 backdrop-blur-sm text-green-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
-                        Featured
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4 sm:p-6">
-                    <div className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-black mb-2 sm:mb-3">
-                      <span className="font-medium text-green-400">{t.blog.categories[post.category as keyof typeof t.blog.categories] || post.category}</span>
-                      <span>•</span>
-                      <span>{post.date}</span>
-                      <span>•</span>
-                      <span>{post.readTime} {t.blog.readTime}</span>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold text-black mb-2 sm:mb-3 group-hover:text-green-400 transition-colors">
-                      {post.title}
-                    </h3>
-
-                    <p className="text-black mb-3 sm:mb-4 line-clamp-3 text-sm sm:text-base">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-6 sm:w-8 h-6 sm:h-8 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
-                        <span className="text-xs sm:text-sm text-black font-medium">{post.author}</span>
-                      </div>
-
-                      <button className="text-emerald-800 hover:text-emerald-900 font-semibold text-xs sm:text-sm flex items-center space-x-1 group">
-                        <span>{t.blog.readMore}</span>
-                        <svg className="w-3 h-3 sm:w-4 sm:h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1 sm:gap-2 mt-3 sm:mt-4">
-                      {post.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className="bg-emerald-100 text-emerald-800 px-2 sm:px-3 py-1 rounded-full text-xs font-medium"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Mobile: Compact Horizontal Scroll */}
-        <div className="sm:hidden mb-8">
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-            {regularPosts.map((post) => (
-              <div key={post.id} className="flex-none w-72">
-                <div
-                  className="bg-white/5 backdrop-blur-sm rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden group cursor-pointer border border-white/10 h-full"
-                >
-                  {/* Image */}
-                  <div className="h-28 bg-gradient-to-r from-emerald-300 to-teal-300 relative overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/10"></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-3">
-                    <div className="flex items-center space-x-2 text-xs text-black mb-1">
-                      <span className="font-medium text-emerald-600">{t.blog.categories[post.category as keyof typeof t.blog.categories] || post.category}</span>
-                      <span>•</span>
-                      <span>{post.date}</span>
-                    </div>
-
-                    <h3 className="text-base font-bold text-black mb-1 group-hover:text-green-400 transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-
-                    <p className="text-black text-xs mb-2 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-green-100/60">{post.readTime} {t.blog.readTime}</span>
-                      <button className="text-green-400 hover:text-green-100 font-semibold text-xs flex items-center space-x-1 group">
-                        <span>{t.blog.readMore}</span>
-                        <svg className="w-2.5 h-2.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Tablet and Desktop: Grid Layout */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {regularPosts.map((post) => (
-            <div
-              key={post.id}
-              className="bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 overflow-hidden group cursor-pointer border border-green-200/30"
-            >
-              {/* Image */}
-              <div className="h-28 sm:h-32 bg-gradient-to-r from-emerald-300 to-teal-300 relative overflow-hidden">
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/10"></div>
-              </div>
-
-              {/* Content */}
-              <div className="p-3 sm:p-5">
-                <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-black mb-1 sm:mb-2">
-                  <span className="font-medium text-emerald-600">{t.blog.categories[post.category as keyof typeof t.blog.categories] || post.category}</span>
-                  <span>•</span>
-                  <span>{post.date}</span>
-                </div>
-
-                <h3 className="text-base sm:text-lg font-bold text-black mb-1 sm:mb-2 group-hover:text-emerald-800 transition-colors line-clamp-2">
-                  {post.title}
-                </h3>
-
-                <p className="text-black text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">
-                  {post.excerpt}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-green-100/60">{post.readTime} {t.blog.readTime}</span>
-                  <button className="text-green-400 hover:text-green-100 font-semibold text-xs flex items-center space-x-1 group">
-                    <span>{t.blog.readMore}</span>
-                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Load More Button */}
-        <div className="text-center mt-8 sm:mt-12">
-          <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl text-sm sm:text-base">
-            {t.blog.loadMore}
-          </button>
-        </div>
-
-        {/* Newsletter Signup */}
-        <div className="mt-12 sm:mt-16">
-          <div className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-black text-center">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">{t.blog.newsletter.title}</h3>
-            <p className="text-lg sm:text-xl mb-4 sm:mb-6 text-emerald-100">
-              {t.blog.newsletter.subtitle}
+        {/* Content and Form Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {/* Text Content */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg">
+            <h3 className="text-xl font-bold mb-4 text-emerald-700">{t.trialClass.subtitle}</h3>
+            <p className="mb-4 text-gray-700">
+              {t.trialClass.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder={t.blog.newsletter.placeholder}
-                className="flex-1 px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-emerald-300 text-sm sm:text-base"
-              />
-              <button className="bg-white text-emerald-800 px-6 sm:px-8 py-2.5 sm:py-4 rounded-lg sm:rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 shadow-xl text-sm sm:text-base">
-                {t.blog.newsletter.subscribe}
+            <ul className="space-y-2 mb-6 text-gray-700">
+              {t.trialClass.features.map((feature, index) => (
+                <li key={index}>• {feature}</li>
+              ))}
+            </ul>
+            
+            <h4 className="text-lg font-bold mb-3 text-emerald-700">{t.trialClass.whatIncludes}</h4>
+            <p className="mb-3 text-gray-700">{t.trialClass.duration}</p>
+            <ol className="space-y-2 mb-6 text-gray-700">
+              {t.trialClass.steps.map((step, index) => (
+                <li key={index}>{index + 1}️⃣ {step}</li>
+              ))}
+            </ol>
+            <p className="text-gray-700 font-medium">
+              {t.trialClass.goal}
+            </p>
+          </div>
+
+          {/* Booking Form */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 sm:p-8 shadow-lg">
+            <h3 className="text-2xl font-bold text-center mb-6 text-emerald-700">
+              {t.trialClass.formTitle}
+            </h3>
+            
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    {t.trialClass.form.name} *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    {t.trialClass.form.email} *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    {t.trialClass.form.phone}
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    {t.trialClass.form.studentAge} *
+                  </label>
+                  <input
+                    type="text"
+                    name="studentAge"
+                    required
+                    placeholder={language === 'ar' ? 'مثلاً، 8 سنوات' : language === 'de' ? 'z.B., 8 Jahre' : 'e.g., 8 years'}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  {t.trialClass.form.preferredTime}
+                </label>
+                <select
+                  name="preferredTime"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                >
+                  <option value="">{language === 'ar' ? 'اختر' : language === 'de' ? 'Auswählen' : 'Select'}</option>
+                  <option value="Morning (9-12) / الصباح (9-12)">
+                    {language === 'ar' ? 'الصباح (9-12)' : language === 'de' ? 'Morgen (9-12)' : 'Morning (9-12)'}
+                  </option>
+                  <option value="Afternoon (12-17) / بعد الظهر (12-17)">
+                    {language === 'ar' ? 'بعد الظهر (12-17)' : language === 'de' ? 'Nachmittag (12-17)' : 'Afternoon (12-17)'}
+                  </option>
+                  <option value="Evening (17-20) / المساء (17-20)">
+                    {language === 'ar' ? 'المساء (17-20)' : language === 'de' ? 'Abend (17-20)' : 'Evening (17-20)'}
+                  </option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-lg font-bold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {isSubmitting ? (language === 'ar' ? 'جاري الإرسال...' : language === 'de' ? 'Wird gesendet...' : 'Sending...') : t.trialClass.form.submit}
               </button>
-            </div>
+            </form>
+            
+            <p className="text-center mt-4 text-sm text-gray-600">
+              {t.trialClass.footer}
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform transition-all duration-300 scale-100">
+            <div className="text-center">
+              {/* Success Icon */}
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === 'de' ? 'Vielen Dank!' : language === 'ar' ? 'شكراً جزيلاً!' : 'Thank You!'}
+              </h3>
+              
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                {language === 'de' ? 'Ihre Teststundenbuchung wurde erfolgreich gesendet! Wir werden uns bald mit Ihnen in Verbindung setzen, um Ihren Termin zu bestätigen.' : language === 'ar' ? 'تم إرسال حجز الحصة التجريبية بنجاح! سنتواصل معك قريباً لتأكيد الموعد.' : 'Your trial class booking has been submitted successfully! We will contact you soon to confirm your appointment.'}
+              </p>
+              
+              <button
+                onClick={closeModal}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+              >
+                {language === 'de' ? 'Schließen' : language === 'ar' ? 'إغلاق' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -120,7 +120,7 @@ export function Header() {
                       
                       {/* Dropdown Menu */}
                       <div 
-                        className={`absolute top-full mt-2 w-64 bg-white rounded-xl shadow-2xl border border-green-200/50 overflow-hidden transition-all duration-300 transform ${
+                        className={`absolute top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-green-200/50 overflow-hidden transition-all duration-300 transform ${
                           item.href === '/services' && servicesDropdownOpen
                             ? 'opacity-100 translate-y-0 visible' 
                             : 'opacity-0 -translate-y-2 invisible'
@@ -203,8 +203,8 @@ export function Header() {
           </div>
 
           {/* Mobile Navigation */}
-          <div className={`lg:hidden overflow-hidden transition-all duration-300 ${
-            isMobileMenuOpen ? 'max-h-96' : 'max-h-0'
+          <div className={`lg:hidden overflow-hidden transition-all duration-300  ${
+            isMobileMenuOpen ? '' : 'max-h-0'
           }`}>
             <nav className={`py-4 space-y-2 ${isRTL ? 'text-right' : 'text-left'}`}>
               {navItems.map((item) => (

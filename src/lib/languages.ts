@@ -7,7 +7,7 @@ export const translations = {
       courses: "Unsere Kurse",
       privateLessons: "Preise",
       parentTraining: "Familienberatung",
-      blog: "Blog", 
+      blog: "kostenlose probestunde", 
       services: "Dienstleistungen",
       store: "Store",
       privacy: "Datenschutz",
@@ -19,14 +19,20 @@ export const translations = {
       hero: {
         title: "Modernes Lernen für alle",
         subtitle: "Unsere Expertise in der Sprachförderung ermöglicht es Ihnen, effektiv und flexibel zu lernen. Vertrauen Sie auf unsere praxisnahen Angebote.",
-        cta: "Jetzt starten"
+        cta: "Jetzt starten",
+        slogan: {
+          line1: "Starke Sprache.",
+          line2: "Starke Identität.",
+          line3: "Starke Zukunft.",
+          trialButton: "Kostenlose Probestunde"
+        }
       },
       courses: {
         title: "Unsere Sprachkurse",
-        a1: "Sprachkurs A1 - Anfänger",
-        a2: "Sprachkurs A2 - Grundlagen", 
-        b1: "Sprachkurs B1 - Mittelstufe",
-        b2: "Sprachkurs B2 - Fortgeschrittene"
+        a1: "Kurs: Das arabische Alphabet",
+        a2: "Kurs: Al-Qaida An-Nurania", 
+        b1: "Arabisch-Einführungskurs",
+        b2: "Basiskurs (Level 1, 2 & 3)",
       },
       services: {
         title: "Unsere Dienstleistungen",
@@ -57,19 +63,19 @@ export const translations = {
       levels: {
         a1: {
           title: "Sprachkurs A1 - Anfänger",
-          description: "Unsere Sprachkurse sind auf verschiedene Niveaus zugeschnitten. Sie richten sich an Lernende aller Altersgruppen."
+          description: "Dieser Kurs ist der Grundstein für absolute Anfänger. Wir konzentrieren uns auf die korrekte Aussprache (Makharij) und das Schreiben der Buchstaben in ihren verschiedenen Formen. Zudem fördern wir durch erste Hörübungen das Unterscheiden der einzigartigen arabischen Laute."
         },
         a2: {
           title: "Sprachkurs A2 - Grundlagen", 
-          description: "Erleben Sie praxisnahe Inhalte, die das Lernen erleichtern und auf die Bedürfnisse der Lernenden abgestimmt sind."
+          description: "Ein spezialisierter Kurs zur Meisterung der Rezitation von Buchstaben und Wörtern. Ziel ist die präzise Artikulation sowie die Entwicklung der Fähigkeit, den Heiligen Koran und klassische arabische Texte flüssig und korrekt zu lesen."
         },
         b1: {
           title: "Sprachkurs B1 - Mittelstufe",
-          description: "Strukturieren Sie Ihr Lernen effizient mit unseren auf Sie zugeschnittenen Lernplänen."
+          description: "Dieser Kurs dient als Brücke zur Kommunikation. Die Lernenden erfahren, wie man einfache Sätze bildet und grundlegende Alltagsgespräche versteht, wobei der Fokus auf Sprech- und Hörfertigkeiten in realen Situationen liegt."
         },
         b2: {
           title: "Sprachkurs B2 - Fortgeschrittene",
-          description: "Erhalten Sie Zertifikate zur Bestätigung Ihrer Fähigkeiten. Unsere Prüfungen sind anerkannt und zuverlässig."
+          description: "Dieses Programm folgt einem umfassenden Lehrplan, der eine ausgewogene Entwicklung der vier Grundfertigkeiten gewährleistet."
         }
       }
     },
@@ -91,15 +97,15 @@ export const translations = {
     about: {
       title: "Über uns",
       mission: "Unsere Mission",
-      missionText: "Die Lisanakademie wurde mit dem Ziel gegründet, moderne und flexible Lernlösungen für Sprachförderung anzubieten.",
+      missionText: "Die Lisan Al Arabi Akademie wurde gegründet, um moderne und flexible Lernlösungen im Bereich des Arabischunterrichts anzubieten. Unser Ansatz basiert auf klaren, interaktiven Methoden und orientiert sich an den unterschiedlichen Bedürfnissen der Lernenden – unabhängig von Herkunft oder Lernumfeld.",
       vision: "Unsere Vision",
-      visionText: "Gemeinsam setzen wir uns dafür ein, dass Lernende ihre Ziele auf effiziente Weise erreichen.",
+      visionText: "Wir arbeiten gemeinsam daran, eine effektive Lernumgebung zu schaffen, in der Lernende ihre sprachlichen Ziele sicher und effizient erreichen können. Lisan Al Arabi soll ein moderner Bildungsraum sein, der Sprache, Kultur und digitale Möglichkeiten miteinander verbindet.",
       founder: "Über die Gründer",
       meetFounder: "Lernen Sie unseren Gründer kennen",
-      founderTitle: "Gründer & CEO",
-      founderText1: "Mit über 15 Jahren Erfahrung in Sprachbildung und interkultureller Kommunikation hat unser Gründer diese Akademie mit einer klaren Vision gegründet: die Sprachbarriere für arabische Sprecher in Deutschland zu überwinden.",
-      founderText2: "Nachdem er persönlich die Herausforderungen des Deutschlernens als arabischer Muttersprachler erlebt hat, hat unser Gründer innovative Lehrmethoden entwickelt, die traditionellen Sprachunterricht mit kulturellem Verständnis verbinden.",
-      founderText3: "Heute steht unsere Akademie als Zeugnis dieser Vision und hilft Hunderten von Studenten, ihre Sprachziele zu erreichen und sich erfolgreich in die deutsche Gesellschaft zu integrieren.",
+      founderTitle: "Gründer und CEO",
+      founderText1: "Die Idee zur Lisan Al Arabi Akademie entstand aus einer persönlichen Erfahrung ihres Gründers Fayssal Louri. Nach seiner Ankunft in Deutschland erlernte er selbst die deutsche Sprache und erlebte die Herausforderungen des Sprachenlernens in einem neuen kulturellen Umfeld aus erster Hand.",
+      founderText2: "Diese Erfahrung, kombiniert mit seiner Tätigkeit als Arabischlehrer, Trainer im Bereich Persönlichkeitsentwicklung und seiner Arbeit im Medienbereich, prägte seine pädagogische Vision.",
+      founderText3: "Über mehrere Jahre engagierte er sich ehrenamtlich im Arabischen Kulturzentrum in Deutschland, wo er sowohl als Arabischlehrer als auch als Leiter der Vereinsschule tätig war. Darüber hinaus schulte er über 8.000 Menschen in Algerien und erweiterte seine fachlichen Kompetenzen durch ein Studium im Bereich E-Commerce in Deutschland, um pädagogische Inhalte mit digitalen und technischen Lösungen zu verbinden.",
       students: "Studenten",
       yearsExperience: "Jahre Erfahrung",
       averageRating: "Durchschnittliche Bewertung",
@@ -112,15 +118,20 @@ export const translations = {
         email: "E-Mail",
         message: "Nachricht",
         submit: "Senden"
-      }
+      },
+      email: "E-Mail",
+      phone: "Handy",
+      address: "Adresse"
     },
     footer: {
       privacy: "Datenschutz",
       about: "Über die Institution",
       aboutText: "Die Lisanakademie wurde mit dem Ziel gegründet, moderne und flexible Lernlösungen für Sprachförderung anzubieten. Unsere Online-Plattform kombiniert innovative Lehrmethoden mit praxisnahen Inhalten.",
-      rights: "Alle Rechte vorbehalten",
+      quickLinks: "Schnelllinks",
+      contact: "Kontakt",
       followUs: "Folgen Sie uns",
-      socialMediaText: "Bleiben Sie über soziale Medien mit uns verbunden für Updates und Tipps!"
+      socialMediaText: "Bleiben Sie mit uns in Verbindung für Updates und Neuigkeiten.",
+      rights: "Alle Rechte vorbehalten."
     },
     privacy: {
       title: "Datenschutzerklärung",
@@ -401,6 +412,9 @@ export const translations = {
         writing: "Schreiben"
       },
       products: {
+        buyNow: "Jetzt kaufen",
+        processing: "Wird verarbeitet...",
+        paymentUnavailable: "Zahlung nicht verfügbar",
         1: {
           title: "Komplettes Lernset",
           description: "Integrierte Sammlung mit Büchern, Spielen und Lernkarten für das Selbststudium.",
@@ -496,6 +510,34 @@ export const translations = {
         learnMore: "Mehr erfahren"
       }
     },
+    trialClass: {
+      title: "Probestunde buchen",
+      subtitle: "Beratung · Einstufung · Unterrichtserlebnis",
+      description: "Unsere Probestunde ist mehr als nur eine Schnupperstunde. Sie kombiniert:",
+      features: [
+        "ein kurzes Beratungsgespräch",
+        "eine altersgerechte Spracheinschätzung",
+        "eine interaktive Beispiel-Unterrichtseinheit"
+      ],
+      whatIncludes: "Was beinhaltet die Probestunde?",
+      duration: "Innerhalb von 45–60 Minuten:",
+      steps: [
+        "Kurzes Gespräch mit den Eltern",
+        "Sprachliche Einstufung des Schülers",
+        "Beispiel-Unterricht (Teil einer echten Stunde oder spezielle Übung)"
+      ],
+      goal: "Ziel ist es, Eltern Klarheit zu geben und dem Schüler einen realistischen Eindruck vom Unterricht zu vermitteln.",
+      formTitle: "Probestunde buchen",
+      form: {
+        name: "Name",
+        email: "E-Mail",
+        phone: "Telefon",
+        studentAge: "Alter des Schülers",
+        preferredTime: "Bevorzugte Zeit",
+        submit: "🇩🇪 Probestunde jetzt buchen"
+      },
+      footer: "Unverbindlich · Klar · Authentisch"
+    },
     reservation: {
       title: "Kurse Reservierung",
       subtitle: "Wählen Sie das richtige Paket für Sie und buchen Sie Ihre bevorzugte Zeit",
@@ -549,7 +591,7 @@ export const translations = {
       services: "الخدمات", 
       store: "المتجر",
       parentTraining: "استشارات الأسرية",
-      blog: "المدونة",
+      blog: "احجز حصة مجانية",
       privacy: "سياسة الخصوصية",
       about: "من نحن",
       contact: "اتصل بنا",
@@ -559,14 +601,20 @@ export const translations = {
       hero: {
         title: "تعلم اللغة للجميع",
         subtitle: "خبرتنا في تعزيز اللغة تمكنك من التعلم بفعالية ومرونة. ثق في عروضنا العملية.",
-        cta: "ابدأ الآن"
+        cta: "ابدأ الآن",
+        slogan: {
+          line1: "لغة قوية…",
+          line2: "هوية راسخة…",
+          line3: "مستقبل واثق",
+          trialButton: "التجربة المجانية"
+        }
       },
       courses: {
         title: "دوراتنا اللغوية",
-        a1: "دورة لغة A1 - للمبتدئين",
-        a2: "دورة لغة A2 - الأساسيات",
-        b1: "دورة لغة B1 - المستوى المتوسط", 
-        b2: "دورة لغة B2 - المتقدمون"
+        a1: "كورس الحروف الأبجدية",
+        a2: "كورس القاعدة النورانية",
+        b1: "كورس اللغة العربية التمهيدي", 
+        b2: "كورس التأسيس (المستويات الثلاثة)",
       },
       services: {
         title: "خدماتنا",
@@ -597,19 +645,19 @@ export const translations = {
       levels: {
         a1: {
           title: "دورة لغة A1 - للمبتدئين",
-          description: "دوراتنا اللغوية مصممة لمستويات مختلفة. موجهة لجميع الفئات العمرية من المتعلمين."
+          description: "هذا الكورس هو حجر الأساس للمبتدئين تماماً؛ نركز فيه على نطق الحروف من مخارجها الصحيحة وكتابتها بأشكالها المختلفة، مع البدء بتدريبات استماع لتمييز الأصوات العربية الفريدة."
         },
         a2: {
           title: "دورة لغة A2 - الأساسيات",
-          description: "اختبر محتوى عملي يسهل التعلم ومصمم خصيصاً لاحتياجات المتعلمين."
+          description: "دورة متخصصة لإتقان ترتيل الحروف والكلمات؛ تهدف إلى ضبط مخارج الحروف بدقة عالية وتنمية مهارة القراءة السريعة والصحيحة للقرآن الكريم والنصوص العربية الكلاسيكية."
         },
         b1: {
           title: "دورة لغة B1 - المستوى المتوسط",
-          description: "هيكل تعلمك بكفاءة باستخدام خطط التعلم المصممة خصيصاً لك."
+          description: "صُمم هذا الكورس لبناء جسر نحو التواصل؛ حيث يتعلم الطالب كيفية تكوين جمل بسيطة وفهم المحادثات اليومية الأساسية، مع التركيز على مهارات التحدث والاستماع في مواقف واقعية."
         },
         b2: {
           title: "دورة لغة B2 - المتقدمون",
-          description: "احصل على شهادات لتأكيد مهاراتك. امتحاناتنا معترف بها وموثوقة."
+          description: "يعتمد هذا البرنامج على منهجية متكاملة تضمن تطور المهارات الأربع بشكل متوازن."
         }
       }
     },
@@ -631,15 +679,15 @@ export const translations = {
     about: {
       title: "من نحن",
       mission: "مهمتنا",
-      missionText: "تأسست ليسانأكاديمي بهدف تقديم حلول تعلم حديثة ومرنة لتعزيز اللغة.",
+      missionText: "تأسست أكاديمية لسان العربي بهدف تقديم حلول تعليمية حديثة ومرنة في مجال تعليم اللغة العربية، تعتمد على أساليب واضحة وتفاعلية، وتواكب احتياجات المتعلمين في بيئات مختلفة، سواء داخل العالم العربي أو خارجه. نهدف إلى تسهيل تعلّم اللغة العربية وجعلها أكثر قربًا ووضوحًا للمتعلمين، مع التركيز على الاستخدام العملي والفهم الحقيقي للغة",
       vision: "رؤيتنا",
-      visionText: "نعمل معاً لضمان تحقيق المتعلمين لأهدافهم بكفاءة.",
+      visionText: "نعمل معًا لخلق تجربة تعليمية تمكّن المتعلمين من تحقيق أهدافهم اللغوية بثقة وكفاءة، وأن يكون لسان العربي مساحة تعليمية تجمع بين اللغة، الثقافة، والتقنية الحديثة، وتربط المتعلمين بالعربية في سياقها الواقعي والمعاصر.",
       founder: "عن المؤسسين",
       meetFounder: "تعرف على مؤسسنا",
-      founderTitle: "مؤسس و CEO",
-      founderText1: "مع أكثر من 15 عامًا من الخبرة في تعليم اللغات والتواصل بين الثقافات، أسس مؤسسنا هذه الأكاديمية برؤية واضحة: سد الفجوة اللغوية للناطقين باللغة العربية في ألمانيا.",
-      founderText2: "بعد أن عاش شخصيًا تحديات تعلم اللغة الألمانية كلغة عربية، طور مؤسسنا طرق تدريس مبتكرة تجمع بين تعليم اللغات التقليدي والفهم الثقافي.",
-      founderText3: "اليوم، تقف أكاديميتنا كشهادة على هذه الرؤية، وتساعد مئات الطلاب على تحقيق أهدافهم اللغوية والاندماج بنجاح في المجتمع الألماني.",
+      founderTitle: "مؤسس",
+      founderText1: "انبثقت فكرة أكاديمية لسان العربي من تجربة شخصية عاشها مؤسسها، الأستاذ فيصل لوري، خلال انتقاله إلى ألمانيا وتعلّمه اللغة الألمانية كلغة جديدة. هذه التجربة فتحت أمامه وعيًا عميقًا بالتحديات التي يواجهها المتعلم عند تعلّم لغة في بيئة وثقافة مختلفة.",
+      founderText2: "من خلال مسيرته كمعلم لغة عربية، ومدرّب في مجال التطوير الشخصي، وتجربته في العمل الإعلامي، ثم تطوّعه لعدة سنوات في المركز العربي الثقافي بألمانيا كمعلم ومدير لمدرسة الجمعية، تشكّل لديه تصور واضح لأهمية الدمج بين اللغة، الفهم الثقافي، والأساليب التعليمية الحديثة.",
+      founderText3: "إلى جانب ذلك، قام الأستاذ فيصل بتدريب أكثر من 8000 شخص في الجزائر، وواصل تطوير نفسه بدراسة مجال التجارة الإلكترونية (E-Commerce) في ألمانيا، بهدف الاستفادة من الأدوات الرقمية والتقنية في بناء تجربة تعليمية متكاملة.",
       students: "الطلاب",
       yearsExperience: "سنوات خبرة",
       averageRating: "متوسط التقييم",
@@ -652,15 +700,20 @@ export const translations = {
         email: "البريد الإلكتروني",
         message: "الرسالة",
         submit: "إرسال"
-      }
+      },
+      email: "البريد الإلكتروني",
+      phone: "الهاتف",
+      address: "العنوان"
     },
     footer: {
       privacy: "سياسة الخصوصية",
       about: "عن المؤسسة",
-      aboutText: "تأسست ليسانأكاديمي بهدف تقديم حلول تعلم حديثة ومرنة لتعزيز اللغة. منصتنا أونلاين تجمع بين طرق تدريس مبتكرة ومحتوى عملي.",
-      rights: "جميع الحقوق محفوظة",
+      aboutText: "تأسست اكاديمية اللسان العربي  بهدف تقديم حلول تعلم حديثة ومرنة لتعزيز اللغة. منصتنا أونلاين تجمع بين طرق تدريس مبتكرة ومحتوى عملي.",
+      quickLinks: "روابط سريعة",
+      contact: "اتصل بنا",
       followUs: "تابعنا",
-      socialMediaText: "ابق على اتصال معنا عبر وسائل التواصل الاجتماعي للحصول على تحديثات ونصائح!"
+      socialMediaText: "ابق على اتصال معنا للحصول على التحديثات والأخبار.",
+      rights: "جميع الحقوق محفوظة."
     },
     privacy: {
       title: "سياسة الخصوصية",
@@ -783,7 +836,7 @@ export const translations = {
         nextSteps: "الخطوات التالية",
         nextStepsText: "تواصل معنا لاستشارة شخصية",
         enrollNow: "سجل الآن",
-        reservationRules: "ملاحظة للمصمم",
+        reservationRules: "قواعد الحجز",
         basePrice: "السعر الأساسي هو 4.99 يورو للساعة الواحدة",
         sessionDuration: "مدة الحصة هي 90 دقيقة (ساعة ونصف)",
         sessionCost: "تكلفة الحصة الواحدة هي 7.50 يورو",
@@ -1010,6 +1063,9 @@ export const translations = {
         writing: "الكتابة"
       },
       products: {
+        buyNow: "اشترِ الآن",
+        processing: "جاري المعالجة...",
+        paymentUnavailable: "الدفع غير متاح",
         1: {
           title: "حقيبة التعلم المتكاملة",
           description: "مجموعة متكاملة تشمل كتباً، ألعاباً، وبطاقات تعليمية للتعلم الذاتي.",
@@ -1109,6 +1165,34 @@ export const translations = {
       selectedPackage: "الباقة المختارة",
       cancel: "إلغاء",
       submitting: "جاري الإرسال..."
+    },
+    trialClass: {
+      title: "احجز حصة تجريبية",
+      subtitle: "تعريف · تقييم · تجربة تعليمية حقيقية",
+      description: "الحصة التجريبية في أكاديمية لسان العربي ليست حصة تقليدية فقط، بل لقاء متكامل يهدف إلى:",
+      features: [
+        "التعارف وبناء الأمان مع الطالب",
+        "تقييم المستوى اللغوي بشكل مبسّط",
+        "تجربة درس نموذجي تفاعلي يعكس أسلوبنا التعليمي"
+      ],
+      whatIncludes: "ماذا تتضمن الحصة التجريبية؟",
+      duration: "خلال 45–60 دقيقة:",
+      steps: [
+        "استشارة قصيرة مع ولي الأمر",
+        "تقييم لغوي مناسب لعمر الطالب",
+        "درس نموذجي حي (جزء من حصة حقيقية أو نشاط خاص)"
+      ],
+      goal: "الهدف: أن يخرج ولي الأمر بصورة واضحة، وأن يعيش الطالب تجربة تعليمية ممتعة قبل اتخاذ قرار الاشتراك.",
+      formTitle: "احجز حصتك التجريبية",
+      form: {
+        name: "الاسم",
+        email: "البريد الإلكتروني",
+        phone: "الهاتف",
+        studentAge: "عمر الطالب",
+        preferredTime: "الوقت المفضل",
+        submit: "🇸🇦 احجز حصة تجريبية الآن"
+      },
+      footer: "بدون التزام · توجيه واضح · تجربة حقيقية"
     }
   },
   en: {
@@ -1119,7 +1203,7 @@ export const translations = {
       services: "Services",
       store: "Store",
       parentTraining: "Family Counseling",
-      blog: "Blog",
+      blog: "Book a free class",
       privacy: "Privacy Policy",
       about: "About",
       contact: "Contact",
@@ -1129,14 +1213,20 @@ export const translations = {
       hero: {
         title: "Modern Learning for All",
         subtitle: "Our expertise in language support enables you to learn effectively and flexibly. Trust in our practical offers.",
-        cta: "Get Started"
+        cta: "Get Started",
+        slogan: {
+          line1: "Strong Language.",
+          line2: "Strong Identity.",
+          line3: "Strong Future.",
+          trialButton: "Free Trial"
+        }
       },
       courses: {
         title: "Our Language Courses",
-        a1: "Language Course A1 - Beginner",
-        a2: "Language Course A2 - Elementary",
-        b1: "Language Course B1 - Intermediate",
-        b2: "Language Course B2 - Advanced"
+        a1: "Arabic Alphabet Course",
+        a2: "Al-Qaida An-Nurania Course",
+        b1: "Arabic Introduction Course",
+        b2: "Foundation Course (Level 1, 2 & 3)",
       },
       services: {
         title: "Our Services",
@@ -1167,19 +1257,19 @@ export const translations = {
       levels: {
         a1: {
           title: "Language Course A1 - Beginner",
-          description: "Our language courses are designed for different levels. They are aimed at learners of all age groups."
+          description: "This course is the foundation for absolute beginners. We focus on correct pronunciation (Makharij) and writing letters in their different forms. Additionally, we promote the distinction of unique Arabic sounds through initial listening exercises."
         },
         a2: {
           title: "Language Course A2 - Elementary",
-          description: "Experience practical content that makes learning easier and is tailored to learners' needs."
+          description: "A specialized course for mastering the recitation of letters and words. The goal is precise articulation and developing the ability to read the Holy Quran and classical Arabic texts fluently and correctly."
         },
         b1: {
           title: "Language Course B1 - Intermediate",
-          description: "Structure your learning efficiently with our learning plans tailored to you."
+          description: "This course is designed to build a bridge to communication; students learn how to form simple sentences and understand basic daily conversations, with focus on speaking and listening skills in real-life situations."
         },
         b2: {
           title: "Language Course B2 - Advanced",
-          description: "Receive certificates to confirm your skills. Our exams are recognized and reliable."
+          description: "This program follows a comprehensive curriculum that ensures balanced development of the four basic skills."
         }
       }
     },
@@ -1201,15 +1291,15 @@ export const translations = {
     about: {
       title: "About Us",
       mission: "Our Mission",
-      missionText: "Lisanakademie was founded with the goal of offering modern and flexible learning solutions for language support.",
-      vision: "Our Vision", 
-      visionText: "Together we work to ensure that learners achieve their goals efficiently.",
-      founder: "About the Founders",
+      missionText: "Lisan Al Arabi Academy was founded to provide modern and flexible learning solutions in Arabic language education. Our approach is based on clear, interactive methods and caters to diverse needs of learners - regardless of their background or learning environment.",
+      vision: "Our Vision",
+      visionText: "We work together to create an effective learning environment where learners can achieve their language goals with confidence and efficiency. Lisan Al Arabi aims to be a modern educational space that connects language, culture, and digital opportunities.",
+      founder: "About Our Founder",
       meetFounder: "Meet Our Founder",
-      founderTitle: "Founder & CEO",
-      founderText1: "With over 15 years of experience in language education and cross-cultural communication, our founder established this academy with a clear vision: to bridge the language gap for Arabic speakers in Germany.",
-      founderText2: "Having personally experienced the challenges of learning German as an Arabic speaker, our founder has developed innovative teaching methods that combine traditional language instruction with cultural understanding.",
-      founderText3: "Today, our academy stands as a testament to this vision, helping hundreds of students achieve their language goals and successfully integrate into German society.",
+      founderTitle: "Founder and CEO",
+      founderText1: "The idea for Lisan Al Arabi Academy emerged from personal experience of its founder, Fayssal Louri. Upon arriving in Germany, he learned German himself and experienced firsthand challenges of language learning in a new cultural environment.",
+      founderText2: "This experience, combined with his work as an Arabic teacher, personal development trainer, and media background, shaped his educational vision.",
+      founderText3: "For several years, he volunteered at Arab Cultural Center in Germany, where he served as both an Arabic teacher and head of association's school.",
       students: "Students",
       yearsExperience: "Years Experience",
       averageRating: "Average Rating",
@@ -1222,15 +1312,20 @@ export const translations = {
         email: "Email",
         message: "Message",
         submit: "Send"
-      }
+      },
+      email: "Email",
+      phone: "Phone",
+      address: "Address"
     },
     footer: {
       privacy: "Privacy Policy",
       about: "About Institution",
       aboutText: "Lisanakademie was founded with the goal of offering modern and flexible learning solutions for language support. Our online platform combines innovative teaching methods with practical content.",
-      rights: "All Rights Reserved",
+      quickLinks: "Quick Links",
+      contact: "Contact",
       followUs: "Follow Us",
-      socialMediaText: "Stay connected with us on social media for updates and tips!"
+      socialMediaText: "Stay connected with us on social media for updates and tips!",
+      rights: "All Rights Reserved"
     },
     privacy: {
       title: "Privacy Policy",
@@ -1539,7 +1634,7 @@ export const translations = {
       learningSet: "Learning Set",
       digitalResource: "Digital Resource",
       noVideosFound: "No videos found",
-      tryDifferentCategory: "Try selecting a different category",
+      tryDifferentCategory: "Try a different category",
       watchNow: "Watch Now",
       videoCategories: {
         alphabet: "Alphabet",
@@ -1550,6 +1645,9 @@ export const translations = {
         writing: "Writing"
       },
       products: {
+        buyNow: "Buy Now",
+        processing: "Processing...",
+        paymentUnavailable: "Payment Unavailable",
         1: {
           title: "Complete Learning Set",
           description: "Integrated collection with books, games, and learning cards for self-learning.",
@@ -1650,5 +1748,33 @@ export const translations = {
       cancel: "Cancel",
       submitting: "Submitting..."
     },
+    trialClass: {
+      title: "Book a Trial Class",
+      subtitle: "Assessment · Evaluation · Real Learning Experience",
+      description: "The trial class at Lisan Arabi Academy is not just a regular class, but an integrated meeting that aims to:",
+      features: [
+        "Get to know the student and build trust",
+        "Simple language level assessment",
+        "Experience an interactive sample lesson that reflects our teaching style"
+      ],
+      whatIncludes: "What does the trial class include?",
+      duration: "Within 45-60 minutes:",
+      steps: [
+        "Brief consultation with parents",
+        "Language assessment appropriate for the student's age",
+        "Live sample lesson (part of a real class or special activity)"
+      ],
+      goal: "Goal: Parents leave with a clear picture, and the student experiences an enjoyable learning experience before deciding to subscribe.",
+      formTitle: "Book Your Trial Class",
+      form: {
+        name: "Name",
+        email: "Email",
+        phone: "Phone",
+        studentAge: "Student Age",
+        preferredTime: "Preferred Time",
+        submit: "🇬🇧 Book a Trial Class Now"
+      },
+      footer: "No commitment · Clear guidance · Real experience"
+    }
   }
 };

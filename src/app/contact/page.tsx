@@ -1,29 +1,78 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ContactPage() {
-  const { t, isRTL } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const { t, isRTL, language } = useLanguage();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you for your message. We will get back to you soon!');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus("Sending...");
+
+    try {
+      // Get all form data from DOM
+      const form = formRef.current;
+      if (!form) return;
+      
+      const formData = new FormData(form);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const message = formData.get('message') as string;
+      
+      // Create a single message string with all information
+      const messageContent = `
+Contact Form Submission:
+
+Personal Information:
+- Name: ${name}
+- Email: ${email}
+
+Message:
+${message}
+      `.trim();
+
+      // Send formatted message using emailjs.send
+      await emailjs.send(
+        "service_8wtdizb",      // Service ID
+        "template_ulrw044",     // Template ID
+        {
+          to_email: "laaakademie@gmail.com",
+          subject: `Contact Message from ${name}`,
+          message: messageContent,
+          reply_to: email
+        },
+        "N6FeQ45lY6cUjYR94"    // Public Key
+      );
+
+      setStatus("Message sent successfully!");
+      setShowModal(true);
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      setStatus("Failed to send message.");
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const closeModal = (): void => {
+    setShowModal(false);
+  };
+
+  const getSuccessMessage = () => {
+    switch (language) {
+      case 'de':
+        return 'Vielen Dank für deine Nachricht! Wir haben deine Anfrage erhalten und melden uns schnellstmöglich bei dir zurück.';
+      case 'ar':
+        return 'شكراً لك على رسالتك! لقد استلمنا طلبك وسنتواصل معك في أقرب وقت ممكن.';
+      default:
+        return 'Thank you for your message! We have received your request and will get back to you as soon as possible.';
+    }
   };
 
   return (
@@ -39,9 +88,9 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className={`bg-white rounded-xl shadow-lg p-8 ${isRTL ? 'text-right' : 'text-left'}`}>
             <h2 className="text-2xl font-bold text-green-900 mb-6">
-              Send us a Message
+              {t.contact.title}
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   {t.contact.form.name}
@@ -50,8 +99,6 @@ export default function ContactPage() {
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
                   placeholder={t.contact.form.name}
@@ -66,8 +113,6 @@ export default function ContactPage() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
                   placeholder={t.contact.form.email}
@@ -81,8 +126,6 @@ export default function ContactPage() {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
                   rows={6}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors resize-none"
@@ -92,9 +135,10 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="w-full bg-green-600/50 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+                disabled={status === "Sending..."}
               >
-                {t.contact.form.submit}
+                {status === "Sending..." ? "Sending..." : t.contact.form.submit}
               </button>
             </form>
           </div>
@@ -114,8 +158,8 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                    <p className="text-gray-600">info@germanacademy.de</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t.contact.email}</h4>
+                    <p className="text-gray-600">info@lisanakademie.de</p>
                   </div>
                 </div>
 
@@ -126,7 +170,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t.contact.phone}</h4>
                     <p className="text-gray-600">004915208532660</p>
                   </div>
                 </div>
@@ -139,26 +183,48 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
-                    <p className="text-gray-600">Berlin, Germany</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{t.contact.address}</h4>
+                    <p className="text-gray-600">Ebersbach an der Fils, Germany</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-green-600/50 text-white rounded-xl p-8">
-              <h3 className="text-xl font-bold mb-4">
-                Office Hours
-              </h3>
-              <div className="space-y-2">
-                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p>Saturday: 10:00 AM - 2:00 PM</p>
-                <p>Sunday: Closed</p>
-              </div>
-            </div>
+      
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 transform transition-all duration-300 scale-100">
+            <div className="text-center">
+              {/* Success Icon */}
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === 'de' ? 'Vielen Dank!' : language === 'ar' ? 'شكراً جزيلاً!' : 'Thank You!'}
+              </h3>
+              
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                {getSuccessMessage()}
+              </p>
+              
+              <button
+                onClick={closeModal}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition-colors shadow-md hover:shadow-lg"
+              >
+                {language === 'de' ? 'Schließen' : language === 'ar' ? 'إغلاق' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
