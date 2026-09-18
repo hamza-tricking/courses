@@ -57,7 +57,7 @@ export function OnlineLessonsSection() {
       subtitle: language === 'ar' ? 'لبناء أساس لغوي متين' : language === 'de' ? 'Für einen soliden Einstieg' : 'For Building Solid Language Foundation',
       price: language === 'ar' ? '49,95 €' : language === 'de' ? '49,95 €' : '49,95 €',
       period: language === 'ar' ? 'حصتان أونلاين مباشر أسبوعيًا' : language === 'de' ? '2 Live-Online-Unterrichtseinheiten pro Woche' : '2 live online sessions weekly',
-      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png',
+      image: '/packs/pack1.jpeg',
       stripeUrl: 'https://buy.stripe.com/9B68wPgtX0I6c3xfLacEw02',
       features: [
         language === 'ar' ? 'حصتان أونلاين مباشر أسبوعيًا' : language === 'de' ? '2 Live-Online-Unterrichtseinheiten pro Woche' : '2 live online sessions weekly',
@@ -75,7 +75,7 @@ export function OnlineLessonsSection() {
       subtitle: language === 'ar' ? 'لتطوير المهارات بشكل أسرع' : language === 'de' ? 'Für schnellen und nachhaltigen Lernfortschritt' : 'For Fast and Sustainable Progress',
       price: language === 'ar' ? '69,90 €' : language === 'de' ? '69,90 €' : '69,90 €',
       period: language === 'ar' ? '3 حصص أونلاين أسبوعيًا' : language === 'de' ? '3 Unterrichtseinheiten pro Woche' : '3 online sessions weekly',
-      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png',
+      image: '/packs/pack 2.jpeg',
       stripeUrl: 'https://buy.stripe.com/fZu3cvcdHduSebF1UkcEw03',
       features: [
         language === 'ar' ? '3 حصص أونلاين أسبوعيًا' : language === 'de' ? '3 Unterrichtseinheiten pro Woche' : '3 online sessions weekly',
@@ -94,7 +94,7 @@ export function OnlineLessonsSection() {
       subtitle: language === 'ar' ? 'للوصول إلى الطلاقة والاحتراف' : language === 'de' ? 'Für Sprachsicherheit und höchste Lernziele' : 'For Language Proficiency and Highest Goals',
       price: language === 'ar' ? '89,95 €' : language === 'de' ? '89,95 €' : '89,95 €',
       period: language === 'ar' ? '4 حصص أونلاين أسبوعيًا' : language === 'de' ? '4 Unterrichtseinheiten pro Woche' : '4 online sessions weekly',
-      image: '/Courses photos/imagess 14.png',
+      image: '/packs/pack 3.jpeg',
       stripeUrl: 'https://buy.stripe.com/5kQ3cv91v8ayffJ42scEw04',
       features: [
         language === 'ar' ? '4 حصص أونلاين أسبوعيًا' : language === 'de' ? '4 Unterrichtseinheiten pro Woche' : '4 online sessions weekly',

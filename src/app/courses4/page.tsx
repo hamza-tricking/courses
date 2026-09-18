@@ -91,7 +91,7 @@ export default function Courses4Page() {
           <div className="mb-12">
             <div className="w-full h-64 md:h-96 rounded-lg shadow-lg overflow-hidden bg-gray-100">
               <img
-                src="/Courses photos/imagess 14.png"
+                src="/Courses photos/lisan mobin .jpeg"
                 alt={courseContent.title}
                 className="w-full h-full object-contain"
               />

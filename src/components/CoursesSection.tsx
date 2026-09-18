@@ -77,7 +77,7 @@ export function CoursesSection() {
         ? 'Alternativ: Progress-Paket für schnelleren Fortschritt.'
         : 'Alternatively: Progress Package for faster results.',
       level: '1',
-      image: '/Courses photos/Gemini_Generated_Image_e0edtbe0edtbe0ed.png',
+      image: '/Courses photos/lisan thad.jpeg',
       href: '/courses1',
       detailed: true
     },
@@ -146,7 +146,7 @@ export function CoursesSection() {
         ? 'Optional: Mastery-Paket für intensive Förderung.'
         : 'And Mastery Package for serious students seeking higher proficiency.',
       level: '2',
-      image: '/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png',
+      image: '/Courses photos/lisan l3arab.jpeg',
       href: '/courses3',
       detailed: true
     },
@@ -215,7 +215,7 @@ export function CoursesSection() {
         ? ''
         : 'For advanced students seeking mastery of Arabic language.',
       level: '3',
-      image: '/Courses photos/imagess 14.png',
+      image: '/Courses photos/lisan mobin .jpeg',
       href: '/courses4',
       detailed: true
     },

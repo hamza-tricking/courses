@@ -91,7 +91,7 @@ export default function Courses3Page() {
           <div className="mb-12">
             <div className="w-full h-64 md:h-96 rounded-lg shadow-lg overflow-hidden bg-gray-100">
               <img
-                src="/Courses photos/Gemini_Generated_Image_ppr7yzppr7yzppr7.png"
+                src="/Courses photos/lisan l3arab.jpeg"
                 alt={courseContent.title}
                 className="w-full h-full object-contain"
               />
